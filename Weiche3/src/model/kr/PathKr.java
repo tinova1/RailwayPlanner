@@ -9,9 +9,7 @@ import components.TieBandComp;
 import model.railway.Railway;
 import vectorMath.Dist;
 import vectorMath.MathUtils;
-import vectorMath.Orientation;
 import vectorMath.objects2D.Path;
-import vectorMath.objects3D.Axis;
 import vectorMath.objects3D.CSYS;
 import vectorMath.objects3D.Point;
 
@@ -122,8 +120,8 @@ public class PathKr extends Railway {
 		final Tie lastTieRight = tieListRight.get(tieListRight.size() - 1);
 		final Tie lastTieLeft = tieListLeft.get(tieListLeft.size() - 1);
 
-		final double maxRight = this.startValue(lastTieRight)+this.t.getWidth()*1.5;
-		final double maxLeft = this.startValue(lastTieLeft)+this.t.getWidth()*1.5;
+		final double maxRight = this.startValue(lastTieRight) + this.t.getWidth() * 1.5;
+		final double maxLeft = this.startValue(lastTieLeft) + this.t.getWidth() * 1.5;
 
 		final double l1 = this.path01.getLength();
 		final double l2 = this.path02.getLength();

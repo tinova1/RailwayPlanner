@@ -1,6 +1,6 @@
 package components;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import model.kr.Kr;
 import vectorMath.objects2D.Path;
@@ -9,7 +9,7 @@ import vectorMath.objects3D.Line;
 public class RailCompKr {
 	private final Kr kr;
 	private final double gauge;
-	private final ArrayList<RailDraw> railList;
+	private final List<RailDraw> railList;
 	private final Rail r;
 
 	// {13R, 13L, 24R, 24L}
@@ -27,11 +27,11 @@ public class RailCompKr {
 	}
 
 	private Path rail(final int from, final int to, final Side side, final boolean flange) {
-		double offset = this.gauge / 2. ;
+		double offset = this.gauge / 2.;
 		if (flange)
 			offset -= this.r.getFlangeFreedom();
-		else 
-		offset-=this.offset;
+		else
+			offset -= this.offset;
 		if (side == Side.LEFT)
 			offset *= -1.;
 

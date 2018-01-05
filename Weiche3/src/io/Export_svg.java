@@ -1,6 +1,6 @@
 package io;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import components.Kleineisen;
 import components.RailDraw;
@@ -35,7 +35,7 @@ public class Export_svg {
 		final Tag rootTag = new Tag("svg", false);
 		rootTag.addEntry("version", "1.1");
 		rootTag.addEntry("xmlns", "http://www.w3.org/2000/svg");
-		rootTag.addEntry("transform","scale(1,-1)");
+		rootTag.addEntry("transform", "scale(1,-1)");
 		svgFile.addElement(rootTag);
 
 		final Tag gTag = new Tag("g", false);
@@ -43,7 +43,7 @@ public class Export_svg {
 		gTag.addEntry("stroke-width", "0.1");
 		gTag.addEntry("fill", "none");
 
-		ArrayList<Tie> tieList = w.getTieBand().getTieList();
+		List<Tie> tieList = w.getTieBand().getTieList();
 		for (Tie i : tieList) {
 			gTag.addComment("Tie");
 			gTag.addElement(i.export_svg());
@@ -55,9 +55,9 @@ public class Export_svg {
 		}
 		this.setMargin();
 
-		ArrayList<RailDraw> railList = w.getRailList();
+		List<RailDraw> railList = w.getRailList();
 		for (RailDraw r : railList) {
-			gTag.addComment("Rail "+r.hashCode());
+			gTag.addComment("Rail " + r.hashCode());
 			gTag.addElement(r.getCurve().export_svg());
 		}
 
@@ -73,13 +73,13 @@ public class Export_svg {
 		xMin = Math.min(xMin, i.getCube().min(Orientation.GLOBAL)[0]);
 		yMin = Math.min(yMin, i.getCube().min(Orientation.GLOBAL)[1]);
 	}
-	
+
 	private void setMargin() {
 		final double margin = 10;
-		xMax+=margin;
-		yMax+=margin;
-		yMin-=margin;
-		xMin-=margin;
+		xMax += margin;
+		yMax += margin;
+		yMin -= margin;
+		xMin -= margin;
 	}
 
 	private Entry viewBoxEntry() {
@@ -92,12 +92,12 @@ public class Export_svg {
 
 	private Entry widthEntry() {
 		final double width = this.xMax - this.xMin;
-		return new Entry("width",width+"mm");
+		return new Entry("width", width + "mm");
 	}
 
 	private Entry heightEntry() {
 		final double height = this.yMax - this.yMin;
-		return new Entry("height", height+"mm");
+		return new Entry("height", height + "mm");
 	}
 	/*
 	 * public static void ausgabe(Railway w) { try { FileWriter ausgabe = new

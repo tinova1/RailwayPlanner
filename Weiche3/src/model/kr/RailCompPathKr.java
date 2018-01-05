@@ -1,6 +1,6 @@
 package model.kr;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import components.Rail;
 import components.RailDraw;
@@ -11,7 +11,7 @@ import vectorMath.objects3D.Line;
 public class RailCompPathKr {
 	private final PathKr kr;
 	private final double gauge;
-	private final ArrayList<RailDraw> railList;
+	private final List<RailDraw> railList;
 	private final Rail r;
 
 	// {13R, 13L, 24R, 24L}

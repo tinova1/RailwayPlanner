@@ -1,6 +1,7 @@
 package model.railway;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import components.Kleineisen;
 import components.Rail;
@@ -32,8 +33,8 @@ public abstract class Railway {
 	}
 
 	protected TieBand tieBand = new TieBand();
-	protected ArrayList<RailDraw> railList = new ArrayList<>();
-	protected ArrayList<Kleineisen> klein_list = new ArrayList<>();
+	protected List<RailDraw> railList = new ArrayList<>();
+	protected List<Kleineisen> klein_list = new ArrayList<>();
 
 	public TieBand getTieBand() {
 		return tieBand;
@@ -43,7 +44,7 @@ public abstract class Railway {
 		this.tieBand = input;
 	}
 
-	public ArrayList<RailDraw> getRailList() {
+	public List<RailDraw> getRailList() {
 		return railList;
 	}
 
@@ -51,7 +52,7 @@ public abstract class Railway {
 		railList = input;
 	}
 
-	public ArrayList<Kleineisen> getKlein_list() {
+	public List<Kleineisen> getKlein_list() {
 		return klein_list;
 	}
 
@@ -70,9 +71,9 @@ public abstract class Railway {
 			i.getCurve().move(dp);
 		}
 	}
-	
+
 	public void rotate(final double drot) {
-		this.rotate(this.csys.getPoint(),drot);
+		this.rotate(this.csys.getPoint(), drot);
 	}
 
 	public void rotate(final Point center, final double drot) {

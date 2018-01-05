@@ -11,6 +11,7 @@ import vectorMath.objects3D.LineSeg;
 import vectorMath.objects3D.Point;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class KleineisenCalculator {
 
@@ -21,8 +22,8 @@ public class KleineisenCalculator {
 	}
 
 	public ArrayList<Kleineisen> berechnen() {
-		ArrayList<Tie> tie_list = w.getTieBand().getTieList();
-		ArrayList<RailDraw> rail_list = w.getRailList();
+		List<Tie> tie_list = w.getTieBand().getTieList();
+		List<RailDraw> rail_list = w.getRailList();
 
 		ArrayList<Kleineisen> ausgabe = new ArrayList<Kleineisen>();
 
@@ -65,7 +66,7 @@ public class KleineisenCalculator {
 	}
 
 	public void berechnen(Tie tie) {
-		ArrayList<RailDraw> rail_list = w.getRailList();
+		List<RailDraw> rail_list = w.getRailList();
 
 		for (int i = 0; i < rail_list.size(); i++) {
 			RailDraw rail = rail_list.get(i);
@@ -158,7 +159,7 @@ public class KleineisenCalculator {
 		return a.getRail().isOuter();
 	}
 
-	public static boolean kleinCollidesCurves(Kleineisen a, ArrayList<RailDraw> r) {
+	public static boolean kleinCollidesCurves(Kleineisen a, List<RailDraw> r) {
 		for (int i = 0; i < r.size(); i++) {
 			if (a.getRail().getName().equalsIgnoreCase(r.get(i).getName()))
 				continue;
