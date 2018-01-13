@@ -6,7 +6,7 @@ public class Rail {
 	private double railHead = .3;
 
 	private double vFrogLength = 10.; // Length of "Frog" rails
-	private double kFrogLength = 15.;
+	private double kFrogLength = 8.;
 	private double guideLength = 20.; // Length of Guide rails
 	private double flangeFreedom = 1.;
 
@@ -54,6 +54,10 @@ public class Rail {
 	public double[] getOffsets() {
 		return new double[] { 0., this.getRailHelper(), -this.getRailHead(),
 				-this.getRailHead() - this.getRailHelper() };
+	}
+
+	public double getOffset(final Positions pos) {
+		return this.getOffsets()[pos.getIndex()];
 	}
 
 	public String[] getPositions() {

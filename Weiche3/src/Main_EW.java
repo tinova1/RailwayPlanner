@@ -20,9 +20,9 @@ public class Main_EW {
 		Rail rail = new Rail();
 		
 		final Path p13 = new Path(new LineSeg(new Point(100,100),new Point(50,50)));
-		p13.addArc(500, .5, RotDir.POS);
-		final Path p24 = new Path(new LineSeg(new Point(-50,0),new Point(0,0)));
-		p24.addArc(200, 1, RotDir.NEG);
+		p13.addArc(200, .5, RotDir.POS);
+		final Path p24 = new Path(new LineSeg(new Point(-50,0),new Point(-20,0)));
+		p24.addArc(200, .7, RotDir.POS);
 		PathKr ibw = new PathKr(16.5,rail,p13,p24);
 		
 		

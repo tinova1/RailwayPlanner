@@ -15,8 +15,7 @@ import vectorMath.objects3D.Point;
 
 public class PathKr extends Railway {
 
-	private final Path path13;
-	private final Path path24;
+	private final Path[] path = new Path[4];
 	private final Path path01;
 	private final Path path02;
 	private final Path path03;
@@ -26,8 +25,12 @@ public class PathKr extends Railway {
 
 	public PathKr(final double gauge, final Rail r, final Path path13, final Path path24) {
 		super(new CSYS(), new Tie(), r, gauge);
-		this.path13 = path13;
-		this.path24 = path24;
+		this.path[0] = path13.clone();
+		path13.reverse();
+		this.path[1] = path13;
+		this.path[2] = path24.clone();
+		path24.reverse();
+		this.path[3] = path24;
 		if (this.crossing() == null) {
 			System.out.println("Pfade schneiden sich nicht oder mehrfach!");
 		}
@@ -41,30 +44,26 @@ public class PathKr extends Railway {
 		this.railCompKr.calcRails();
 	}
 
-	public Path getPath13() {
-		return this.path13;
-	}
-
-	public Path getPath24() {
-		return this.path24;
+	public Path[] getPath() {
+		return this.path;
 	}
 
 	private Point crossing() {
-		final Point[] intersection = path13.intersection(path24);
+		final Point[] intersection = path[0].intersection(path[2]);
 		if (intersection.length == 1)
-			return path13.intersection(path24)[0];
+			return path[0].intersection(path[2])[0];
 		else
 			return null;
 	}
 
 	private Path path(final int to) {
 		// from intersection to point
-		final Point[] inters = path13.intersection(path24);
+		final Point[] inters = path[0].intersection(path[2]);
 		if (inters.length == 0) {
 			System.out.println("Pfade schneiden sich nicht!");
 		}
-		final Path path13 = this.path13.clone();
-		final Path path24 = this.path24.clone();
+		final Path path13 = this.path[0].clone();
+		final Path path24 = this.path[2].clone();
 		switch (to) {
 		case 1:
 			path13.trim(path24, false);
@@ -85,26 +84,16 @@ public class PathKr extends Railway {
 		}
 	}
 
-	private Path borderPath(final boolean upper) {
-		final Path path13 = this.path13.clone();
-		final Path path24 = this.path24.clone();
-		path24.reverse();
-		final Path output = new Path();
-		if (upper) {
-			path13.offset(this.gauge / 2.);
-			path24.offset(-this.gauge / 2.);
-			path13.trimTwo(path24, false, true);
-			output.add(path13);
-			output.add(path24);
-		} else {
-			path13.offset(-this.gauge / 2.);
-			path24.offset(this.gauge / 2.);
-			path13.trimTwo(path24, true, false);
-			output.add(path24);
-			output.add(path13);
-		}
-		return output;
-	}
+	/*
+	 * private Path borderPath(final boolean upper) { final Path path13 =
+	 * this.path[0].clone(); final Path path24 = this.path[2].clone();
+	 * path24.reverse(); final Path output = new Path(); if (upper) {
+	 * path13.offset(this.gauge / 2.); path24.offset(-this.gauge / 2.);
+	 * path13.trimTwo(path24, false, true); output.add(path13); output.add(path24);
+	 * } else { path13.offset(-this.gauge / 2.); path24.offset(this.gauge / 2.);
+	 * path13.trimTwo(path24, true, false); output.add(path24); output.add(path13);
+	 * } return output; }
+	 */
 
 	private void calcTies() {
 		final Tie tie = this.getTie();
