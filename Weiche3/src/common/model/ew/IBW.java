@@ -1,4 +1,4 @@
-package model.ew;
+package common.model.ew;
 
 
 

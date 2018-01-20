@@ -1,12 +1,12 @@
-package geometry;
+package common.geometry;
 
-import vectorMath.Dist;
-import vectorMath.Orientation;
-import vectorMath.VectorUtils;
-import vectorMath.objects2D.Curve;
-import vectorMath.objects3D.Cube;
-import vectorMath.objects3D.LineSeg;
-import vectorMath.objects3D.Point;
+import common.vectorMath.Dist;
+import common.vectorMath.Orientation;
+import common.vectorMath.VectorUtils;
+import common.vectorMath.objects2D.Curve;
+import common.vectorMath.objects3D.Cube;
+import common.vectorMath.objects3D.LineSeg;
+import common.vectorMath.objects3D.Point;
 
 public abstract class CollisionDetection {
 

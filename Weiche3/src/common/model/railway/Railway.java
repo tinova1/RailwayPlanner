@@ -1,15 +1,15 @@
-package model.railway;
+package common.model.railway;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import components.Kleineisen;
-import components.Rail;
-import components.RailDraw;
-import components.Tie;
-import components.TieBand;
-import vectorMath.objects3D.CSYS;
-import vectorMath.objects3D.Point;
+import common.components.Kleineisen;
+import common.components.Rail;
+import common.components.RailDraw;
+import common.components.Tie;
+import common.components.TieBand;
+import common.vectorMath.objects3D.CSYS;
+import common.vectorMath.objects3D.Point;
 
 public abstract class Railway {
 	protected Rail r;

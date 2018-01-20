@@ -1,7 +1,7 @@
-package model.ew;
+package common.model.ew;
 
 
-import model.railway.Railway;
+import common.model.railway.Railway;
 
 
 public class BW extends Railway {

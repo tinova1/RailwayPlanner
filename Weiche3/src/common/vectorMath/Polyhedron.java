@@ -1,14 +1,15 @@
-package vectorMath;
+package common.vectorMath;
 
 import java.util.ArrayList;
-import io.io_obj;
-import svgCreator.Tag;
-import vectorMath.objects2D.Path;
-import vectorMath.objects3D.Axis;
-import vectorMath.objects3D.CSYS;
-import vectorMath.objects3D.Cube;
-import vectorMath.objects3D.LineSeg;
-import vectorMath.objects3D.Point;
+
+import common.io.io_obj;
+import common.svgCreator.Tag;
+import common.vectorMath.objects2D.Path;
+import common.vectorMath.objects3D.Axis;
+import common.vectorMath.objects3D.CSYS;
+import common.vectorMath.objects3D.Cube;
+import common.vectorMath.objects3D.LineSeg;
+import common.vectorMath.objects3D.Point;
 
 public class Polyhedron {
 

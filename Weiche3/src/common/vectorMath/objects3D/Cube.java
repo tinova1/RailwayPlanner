@@ -1,11 +1,11 @@
-package vectorMath.objects3D;
+package common.vectorMath.objects3D;
 
 import java.util.ArrayList;
 
-import svgCreator.Tag;
-import vectorMath.Orientation;
-import vectorMath.Polyhedron;
-import vectorMath.objects2D.Path;
+import common.svgCreator.Tag;
+import common.vectorMath.Orientation;
+import common.vectorMath.Polyhedron;
+import common.vectorMath.objects2D.Path;
 
 public class Cube extends Polyhedron {
 

@@ -1,8 +1,8 @@
-package components;
+package common.components;
 
 import java.util.ArrayList;
 
-import vectorMath.objects3D.Point;
+import common.vectorMath.objects3D.Point;
 
 public class TieBand {
 	private ArrayList<Tie> tieList = new ArrayList<>();

@@ -1,7 +1,7 @@
-package io;
+package common.io;
 
-import vectorMath.MathUtils;
-import vectorMath.objects3D.Point;
+import common.vectorMath.MathUtils;
+import common.vectorMath.objects3D.Point;
 
 public abstract class io_obj {
 

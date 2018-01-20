@@ -1,4 +1,4 @@
-package vectorMath;
+package common.vectorMath;
 
 public enum RotDir {
 	POS, // positive direction counterclockwise

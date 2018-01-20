@@ -1,7 +1,7 @@
-package vectorMath.objects3D;
+package common.vectorMath.objects3D;
 
-import vectorMath.Dist;
-import vectorMath.MathUtils;
+import common.vectorMath.Dist;
+import common.vectorMath.MathUtils;
 
 public class Point {
 

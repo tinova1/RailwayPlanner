@@ -1,9 +1,10 @@
-package components;
+package common.components;
 
 import java.util.ArrayList;
-import components.RailDraw;
-import model.ew.PathTurnout;
-import vectorMath.objects2D.Path;
+
+import common.components.RailDraw;
+import common.model.ew.PathTurnout;
+import common.vectorMath.objects2D.Path;
 
 public class RailCompEW_gerades {
 

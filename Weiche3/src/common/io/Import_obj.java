@@ -1,12 +1,12 @@
-package io;
+package common.io;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import vectorMath.Polyhedron;
-import vectorMath.objects3D.Point;
+import common.vectorMath.Polyhedron;
+import common.vectorMath.objects3D.Point;
 
 public abstract class Import_obj {
 

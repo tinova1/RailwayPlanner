@@ -1,4 +1,4 @@
-package svgCreator;
+package common.svgCreator;
 
 public class Comment extends Element {
 	private final String comment;

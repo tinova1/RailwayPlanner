@@ -1,8 +1,8 @@
-package vectorMath;
+package common.vectorMath;
 
-import vectorMath.objects2D.Circle;
-import vectorMath.objects3D.Line;
-import vectorMath.objects3D.Point;
+import common.vectorMath.objects2D.Circle;
+import common.vectorMath.objects3D.Line;
+import common.vectorMath.objects3D.Point;
 
 public abstract class VectorUtils extends MathUtils {
 

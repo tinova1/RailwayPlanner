@@ -1,19 +1,19 @@
-package model.kr;
+package common.model.kr;
 
 import java.util.ArrayList;
 
-import components.Rail;
-import components.RailCompKr;
-import components.Tie;
-import components.TieBand;
-import components.TieBandComp;
-import model.railway.Railway;
-import vectorMath.Orientation;
-import vectorMath.objects2D.Path;
-import vectorMath.objects3D.Axis;
-import vectorMath.objects3D.CSYS;
-import vectorMath.objects3D.LineSeg;
-import vectorMath.objects3D.Point;
+import common.components.Rail;
+import common.components.RailCompKr;
+import common.components.Tie;
+import common.components.TieBand;
+import common.components.TieBandComp;
+import common.model.railway.Railway;
+import common.vectorMath.Orientation;
+import common.vectorMath.objects2D.Path;
+import common.vectorMath.objects3D.Axis;
+import common.vectorMath.objects3D.CSYS;
+import common.vectorMath.objects3D.LineSeg;
+import common.vectorMath.objects3D.Point;
 
 public class Kr extends Railway {
 	private final double l1, l2, l3, l4, angle;

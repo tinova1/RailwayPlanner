@@ -1,13 +1,13 @@
-package vectorMath.objects3D;
+package common.vectorMath.objects3D;
 
 import java.util.ArrayList;
 
-import vectorMath.Dist;
-import vectorMath.VectorUtils;
-import vectorMath.objects2D.Arc;
-import vectorMath.objects2D.Circle;
-import vectorMath.objects2D.Curve;
-import vectorMath.objects2D.Path;
+import common.vectorMath.Dist;
+import common.vectorMath.VectorUtils;
+import common.vectorMath.objects2D.Arc;
+import common.vectorMath.objects2D.Circle;
+import common.vectorMath.objects2D.Curve;
+import common.vectorMath.objects2D.Path;
 
 //a Line Segment with defined end and start points
 

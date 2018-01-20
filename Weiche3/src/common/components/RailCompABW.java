@@ -1,4 +1,4 @@
-package components;
+package common.components;
 
 public class RailCompABW {
 	/*

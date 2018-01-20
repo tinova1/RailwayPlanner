@@ -1,3 +1,4 @@
+package common.starter;
 
 public class Timer {
 	long time; // current time in millis

@@ -1,4 +1,4 @@
-package svgCreator;
+package common.svgCreator;
 
 import java.io.File;
 import java.io.FileWriter;

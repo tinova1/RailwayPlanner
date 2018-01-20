@@ -1,17 +1,17 @@
-package components;
-
-import components.Kleineisen;
-import geometry.*;
-import model.ew.PathTurnout;
-import vectorMath.Orientation;
-import vectorMath.objects2D.Arc;
-import vectorMath.objects3D.Axis;
-import vectorMath.objects3D.Cube;
-import vectorMath.objects3D.LineSeg;
-import vectorMath.objects3D.Point;
+package common.components;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import common.components.Kleineisen;
+import common.geometry.*;
+import common.model.ew.PathTurnout;
+import common.vectorMath.Orientation;
+import common.vectorMath.objects2D.Arc;
+import common.vectorMath.objects3D.Axis;
+import common.vectorMath.objects3D.Cube;
+import common.vectorMath.objects3D.LineSeg;
+import common.vectorMath.objects3D.Point;
 
 public class KleinCalcAdv {
 

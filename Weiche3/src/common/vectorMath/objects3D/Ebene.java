@@ -1,6 +1,6 @@
-package vectorMath.objects3D;
+package common.vectorMath.objects3D;
 
-import vectorMath.VectorUtils;
+import common.vectorMath.VectorUtils;
 
 public class Ebene {
 

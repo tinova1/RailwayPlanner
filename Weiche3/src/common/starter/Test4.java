@@ -1,13 +1,14 @@
+package common.starter;
 import java.util.ArrayList;
 import java.util.List;
 
-import components.Positions;
-import components.RailDraw;
-import components.RailStorage;
-import vectorMath.RotDir;
-import vectorMath.objects2D.Arc;
-import vectorMath.objects2D.Circle;
-import vectorMath.objects3D.Point;
+import common.components.Positions;
+import common.components.RailDraw;
+import common.components.RailStorage;
+import common.vectorMath.RotDir;
+import common.vectorMath.objects2D.Arc;
+import common.vectorMath.objects2D.Circle;
+import common.vectorMath.objects3D.Point;
 
 public class Test4 {
 

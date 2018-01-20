@@ -1,12 +1,12 @@
-package components;
+package common.components;
 
-import vectorMath.Dist;
-import vectorMath.MathUtils;
-import vectorMath.VectorUtils;
-import vectorMath.objects2D.Curve;
-import vectorMath.objects2D.Path;
-import vectorMath.objects3D.Line;
-import vectorMath.objects3D.Point;
+import common.vectorMath.Dist;
+import common.vectorMath.MathUtils;
+import common.vectorMath.VectorUtils;
+import common.vectorMath.objects2D.Curve;
+import common.vectorMath.objects2D.Path;
+import common.vectorMath.objects3D.Line;
+import common.vectorMath.objects3D.Point;
 
 public abstract class TieBandComp {
 	public static TieBand path(double start, double end, Path p, int startNo, String type, Tie t) {

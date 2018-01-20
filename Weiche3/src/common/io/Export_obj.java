@@ -1,13 +1,13 @@
-package io;
+package common.io;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import components.Kleineisen;
-import components.Tie;
-import model.railway.Railway;
+import common.components.Kleineisen;
+import common.components.Tie;
+import common.model.railway.Railway;
 
 public abstract class Export_obj {
 

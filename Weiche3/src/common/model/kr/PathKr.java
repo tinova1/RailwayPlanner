@@ -1,17 +1,17 @@
-package model.kr;
+package common.model.kr;
 
 import java.util.ArrayList;
 
-import components.Rail;
-import components.Tie;
-import components.TieBand;
-import components.TieBandComp;
-import model.railway.Railway;
-import vectorMath.Dist;
-import vectorMath.MathUtils;
-import vectorMath.objects2D.Path;
-import vectorMath.objects3D.CSYS;
-import vectorMath.objects3D.Point;
+import common.components.Rail;
+import common.components.Tie;
+import common.components.TieBand;
+import common.components.TieBandComp;
+import common.model.railway.Railway;
+import common.vectorMath.Dist;
+import common.vectorMath.MathUtils;
+import common.vectorMath.objects2D.Path;
+import common.vectorMath.objects3D.CSYS;
+import common.vectorMath.objects3D.Point;
 
 public class PathKr extends Railway {
 

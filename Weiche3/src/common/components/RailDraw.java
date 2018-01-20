@@ -1,6 +1,6 @@
-package components;
+package common.components;
 
-import vectorMath.objects2D.Curve;
+import common.vectorMath.objects2D.Curve;
 
 public class RailDraw {
 

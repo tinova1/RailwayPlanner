@@ -1,16 +1,16 @@
-package model.ew;
+package common.model.ew;
 
 import java.util.ArrayList;
 
-import components.Rail;
-import components.RailCompEW_gerades;
-import components.Tie;
-import components.TieBand;
-import components.TieBandComp;
-import model.railway.Railway;
-import vectorMath.Orientation;
-import vectorMath.objects2D.Path;
-import vectorMath.objects3D.CSYS;
+import common.components.Rail;
+import common.components.RailCompEW_gerades;
+import common.components.Tie;
+import common.components.TieBand;
+import common.components.TieBandComp;
+import common.model.railway.Railway;
+import common.vectorMath.Orientation;
+import common.vectorMath.objects2D.Path;
+import common.vectorMath.objects3D.CSYS;
 
 public class PathTurnout extends Railway {
 	private final Path pathLeft, pathRight, tiePath;

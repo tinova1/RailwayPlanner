@@ -1,10 +1,10 @@
-package components;
+package common.components;
 
 import java.util.ArrayList;
 
-import vectorMath.objects2D.Curve;
-import vectorMath.objects2D.Path;
-import vectorMath.objects3D.Line;
+import common.vectorMath.objects2D.Curve;
+import common.vectorMath.objects2D.Path;
+import common.vectorMath.objects3D.Line;
 
 public class Frog {
 	private final Path pathRight;

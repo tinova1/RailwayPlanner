@@ -1,7 +1,8 @@
-package svgCreator;
+package common.svgCreator;
 
 import java.util.ArrayList;
-import svgCreator.Entry;
+
+import common.svgCreator.Entry;
 
 public class Tag extends Element {
 	private final String name;

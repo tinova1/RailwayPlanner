@@ -1,12 +1,12 @@
-package vectorMath;
+package common.vectorMath;
 
 import java.util.ArrayList;
 
-import vectorMath.objects2D.Circle;
-import vectorMath.objects2D.Curve;
-import vectorMath.objects3D.Line;
-import vectorMath.objects3D.LineSeg;
-import vectorMath.objects3D.Point;
+import common.vectorMath.objects2D.Circle;
+import common.vectorMath.objects2D.Curve;
+import common.vectorMath.objects3D.Line;
+import common.vectorMath.objects3D.LineSeg;
+import common.vectorMath.objects3D.Point;
 
 public abstract class Dist {
 	public static double dist(Point p, Line l) {

@@ -1,10 +1,10 @@
-package components;
+package common.components;
 
 import java.util.List;
 
-import model.kr.Kr;
-import vectorMath.objects2D.Path;
-import vectorMath.objects3D.Line;
+import common.model.kr.Kr;
+import common.vectorMath.objects2D.Path;
+import common.vectorMath.objects3D.Line;
 
 public class RailCompKr {
 	private final Kr kr;

@@ -1,16 +1,16 @@
-package io;
+package common.io;
 
 import java.util.List;
 
-import components.Kleineisen;
-import components.RailDraw;
-import components.Tie;
-import model.railway.Railway;
-import svgCreator.Entry;
-import svgCreator.SVGExporter;
-import svgCreator.SVGFile;
-import svgCreator.Tag;
-import vectorMath.Orientation;
+import common.components.Kleineisen;
+import common.components.RailDraw;
+import common.components.Tie;
+import common.model.railway.Railway;
+import common.svgCreator.Entry;
+import common.svgCreator.SVGExporter;
+import common.svgCreator.SVGFile;
+import common.svgCreator.Tag;
+import common.vectorMath.Orientation;
 
 public class Export_svg {
 

@@ -1,6 +1,7 @@
-import vectorMath.objects2D.Path;
-import vectorMath.objects3D.LineSeg;
-import vectorMath.objects3D.Point;
+package common.starter;
+import common.vectorMath.objects2D.Path;
+import common.vectorMath.objects3D.LineSeg;
+import common.vectorMath.objects3D.Point;
 
 public class TestTrim {
 	public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package vectorMath.objects3D;
+package common.vectorMath.objects3D;
 
 public enum Axis {
 	X(new Point(1, 0, 0), 0), //

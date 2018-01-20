@@ -1,4 +1,4 @@
-package svgCreator;
+package common.svgCreator;
 
 public class Entry {
 	private final String name;

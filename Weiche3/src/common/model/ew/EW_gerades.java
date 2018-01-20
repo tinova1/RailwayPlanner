@@ -1,11 +1,11 @@
-package model.ew;
+package common.model.ew;
 
-import components.Rail;
-import vectorMath.RotDir;
-import vectorMath.objects2D.Arc;
-import vectorMath.objects2D.Path;
-import vectorMath.objects3D.LineSeg;
-import vectorMath.objects3D.Point;
+import common.components.Rail;
+import common.vectorMath.RotDir;
+import common.vectorMath.objects2D.Arc;
+import common.vectorMath.objects2D.Path;
+import common.vectorMath.objects3D.LineSeg;
+import common.vectorMath.objects3D.Point;
 
 public class EW_gerades {
 	private final double gauge;

@@ -1,4 +1,4 @@
-package components;
+package common.components;
 
 public enum Side {
 	LEFT("left"), RIGHT("right"), BOTH(""), UNKNOWN("?");

@@ -1,10 +1,10 @@
-package components;
+package common.components;
 
-import io.Import_obj;
-import svgCreator.Tag;
-import vectorMath.Orientation;
-import vectorMath.Polyhedron;
-import vectorMath.objects3D.Cube;
+import common.io.Import_obj;
+import common.svgCreator.Tag;
+import common.vectorMath.Orientation;
+import common.vectorMath.Polyhedron;
+import common.vectorMath.objects3D.Cube;
 
 public class Kleineisen {
 	private Polyhedron poly;

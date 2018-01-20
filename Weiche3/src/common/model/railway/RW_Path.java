@@ -1,12 +1,12 @@
-package model.railway;
+package common.model.railway;
 
-import components.Rail;
-import components.RailComp;
-import components.Side;
-import components.Tie;
-import components.TieBandComp;
-import vectorMath.objects2D.Path;
-import vectorMath.objects3D.CSYS;
+import common.components.Rail;
+import common.components.RailComp;
+import common.components.Side;
+import common.components.Tie;
+import common.components.TieBandComp;
+import common.vectorMath.objects2D.Path;
+import common.vectorMath.objects3D.CSYS;
 
 public class RW_Path extends Railway {
 	private Path path;

@@ -1,9 +1,9 @@
-package components;
+package common.components;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import vectorMath.objects2D.Path;
+import common.vectorMath.objects2D.Path;
 
 public abstract class RailComp {
 

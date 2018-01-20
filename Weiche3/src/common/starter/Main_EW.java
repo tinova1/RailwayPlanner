@@ -1,17 +1,18 @@
+package common.starter;
 
-import components.*;
-import model.ew.ABWcreator;
-import model.ew.EW_gerades;
-import model.ew.PathTurnout;
-import model.kr.Kr;
-import model.kr.PathKr;
-import vectorMath.RotDir;
-import vectorMath.objects2D.Arc;
-import vectorMath.objects2D.Path;
-import vectorMath.objects3D.LineSeg;
-import vectorMath.objects3D.Point;
-import io.Export_obj;
-import io.Export_svg;
+import common.components.*;
+import common.io.Export_obj;
+import common.io.Export_svg;
+import common.model.ew.ABWcreator;
+import common.model.ew.EW_gerades;
+import common.model.ew.PathTurnout;
+import common.model.kr.Kr;
+import common.model.kr.PathKr;
+import common.vectorMath.RotDir;
+import common.vectorMath.objects2D.Arc;
+import common.vectorMath.objects2D.Path;
+import common.vectorMath.objects3D.LineSeg;
+import common.vectorMath.objects3D.Point;
 
 public class Main_EW {
 

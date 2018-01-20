@@ -1,12 +1,12 @@
-package components;
+package common.components;
 
 import java.util.ArrayList;
 
-import svgCreator.Tag;
-import vectorMath.objects3D.CSYS;
-import vectorMath.objects3D.Cube;
-import vectorMath.objects3D.Line;
-import vectorMath.objects3D.Point;
+import common.svgCreator.Tag;
+import common.vectorMath.objects3D.CSYS;
+import common.vectorMath.objects3D.Cube;
+import common.vectorMath.objects3D.Line;
+import common.vectorMath.objects3D.Point;
 
 public class Tie {
 

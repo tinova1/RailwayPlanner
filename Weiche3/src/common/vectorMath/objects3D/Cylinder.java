@@ -1,6 +1,6 @@
-package vectorMath.objects3D;
+package common.vectorMath.objects3D;
 
-import vectorMath.Polyhedron;
+import common.vectorMath.Polyhedron;
 
 public class Cylinder extends Polyhedron {
 	double r; // radius

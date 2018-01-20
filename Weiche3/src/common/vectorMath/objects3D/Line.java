@@ -1,14 +1,14 @@
-package vectorMath.objects3D;
+package common.vectorMath.objects3D;
 
 import java.util.ArrayList;
 
-import svgCreator.Entry;
-import svgCreator.Tag;
-import vectorMath.VectorUtils;
-import vectorMath.objects2D.Arc;
-import vectorMath.objects2D.Circle;
-import vectorMath.objects2D.Curve;
-import vectorMath.objects2D.Path;
+import common.svgCreator.Entry;
+import common.svgCreator.Tag;
+import common.vectorMath.VectorUtils;
+import common.vectorMath.objects2D.Arc;
+import common.vectorMath.objects2D.Circle;
+import common.vectorMath.objects2D.Curve;
+import common.vectorMath.objects2D.Path;
 
 public class Line extends Curve {
 	protected Point startPoint;

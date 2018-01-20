@@ -1,12 +1,12 @@
-package vectorMath.objects3D;
+package common.vectorMath.objects3D;
 
-import vectorMath.Dist;
-import vectorMath.MathUtils;
-import vectorMath.RotDir;
-import vectorMath.VectorUtils;
-import vectorMath.objects2D.Arc;
-import vectorMath.objects2D.Curve;
-import vectorMath.objects2D.Path;
+import common.vectorMath.Dist;
+import common.vectorMath.MathUtils;
+import common.vectorMath.RotDir;
+import common.vectorMath.VectorUtils;
+import common.vectorMath.objects2D.Arc;
+import common.vectorMath.objects2D.Curve;
+import common.vectorMath.objects2D.Path;
 
 public class CSYS {
 	private Point p = new Point(0, 0, 0);

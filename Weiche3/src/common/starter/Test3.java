@@ -1,5 +1,6 @@
+package common.starter;
 
-import vectorMath.objects3D.Point;
+import common.vectorMath.objects3D.Point;
 
 public class Test3 {
 	private Test1 test1= new Test1();

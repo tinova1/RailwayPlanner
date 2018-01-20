@@ -1,14 +1,14 @@
-package model.kr;
+package common.model.kr;
 
 import java.util.List;
 
-import components.KFrog;
-import components.Positions;
-import components.Rail;
-import components.RailDraw;
-import components.Side;
-import vectorMath.objects2D.Path;
-import vectorMath.objects3D.Line;
+import common.components.KFrog;
+import common.components.Positions;
+import common.components.Rail;
+import common.components.RailDraw;
+import common.components.Side;
+import common.vectorMath.objects2D.Path;
+import common.vectorMath.objects3D.Line;
 
 public class RailCompPathKr {
 	private final PathKr kr;

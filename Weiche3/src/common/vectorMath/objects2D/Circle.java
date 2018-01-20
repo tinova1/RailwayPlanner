@@ -1,13 +1,13 @@
-package vectorMath.objects2D;
+package common.vectorMath.objects2D;
 
 import java.util.ArrayList;
 
-import svgCreator.Tag;
-import vectorMath.MathUtils;
-import vectorMath.objects3D.Axis;
-import vectorMath.objects3D.Line;
-import vectorMath.objects3D.LineSeg;
-import vectorMath.objects3D.Point;
+import common.svgCreator.Tag;
+import common.vectorMath.MathUtils;
+import common.vectorMath.objects3D.Axis;
+import common.vectorMath.objects3D.Line;
+import common.vectorMath.objects3D.LineSeg;
+import common.vectorMath.objects3D.Point;
 
 public class Circle extends Curve {
 	protected Point c; // center point

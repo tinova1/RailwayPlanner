@@ -1,4 +1,4 @@
-package common;
+package common.guiUtils;
 
 public class ParseInput {
 	public static double parseLength(String input) throws NumberFormatException {
