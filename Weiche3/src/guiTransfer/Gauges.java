@@ -1,4 +1,4 @@
-package common.guiUtils;
+package guiTransfer;
 
 public enum Gauges {
 	II(22.5, 64), //
