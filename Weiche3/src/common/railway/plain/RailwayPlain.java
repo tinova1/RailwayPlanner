@@ -24,7 +24,7 @@ public class RailwayPlain extends Railway {
 	}
 
 	private void calcTies() {
-		this.setTieBand(TieBandComp.path(0, path.getLength(), path, 0, "", this.t));
+		this.setTieBand(TieBandComp.path(this.t.getDist()/2., path.getLength(), path, 0, "", this.t));
 	}
 
 	private void calcRail() {

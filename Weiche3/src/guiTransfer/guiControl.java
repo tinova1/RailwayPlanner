@@ -35,6 +35,9 @@ public abstract class guiControl {
 			radiusRight *= -1.;
 			radiusLeft *= -1.;
 			break;
+		case 4://wye
+			radiusRight*=-1.;
+			break;
 		}
 		final Rail rail = new Rail(foot, head, vFrog, kFrog, guide, flange);
 		Canvas canvas = new Canvas();
@@ -58,8 +61,8 @@ public abstract class guiControl {
 		Railway approach;
 		approach = new RailwayPlain(gauge, rail, approPath);
 		canvas.addToRailwayList(approach);
-		Date date = new Date();
-		final String fileName = date.toString();
+		//Date date = new Date();
+		final String fileName = "ausgabe";//date.toString();
 		if (obj) {
 			Export_obj.ausgabe(fileName, canvas);
 		}
@@ -67,6 +70,6 @@ public abstract class guiControl {
 			Export_svg s = new Export_svg(canvas);
 			s.ausgabe(fileName);
 		}
-		System.out.println("Fertig");
+		System.out.println("Fertig "+fileName);
 	}
 }

@@ -1,6 +1,5 @@
 package views;
 
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,18 +15,6 @@ import javax.swing.UIManager;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 
-import common.components.Rail;
-import common.geometry.Canvas;
-import common.io.Export_obj;
-import common.io.Export_svg;
-import common.railway.Railway;
-import common.railway.plain.RailwayPlain;
-import common.vectorMath.RotDir;
-import common.vectorMath.objects2D.Arc;
-import common.vectorMath.objects2D.Path;
-import common.vectorMath.objects3D.LineSeg;
-import common.vectorMath.objects3D.Point;
-import guiTransfer.CreateTurnout;
 import guiTransfer.ParseInput;
 import guiTransfer.guiControl;
 
@@ -38,7 +25,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.beans.PropertyChangeListener;
-import java.util.Date;
 import java.beans.PropertyChangeEvent;
 
 public class CreateTurnoutGUI extends JFrame {
@@ -872,10 +858,10 @@ public class CreateTurnoutGUI extends JFrame {
 				double guide = Double.parseDouble(tfGuide.getText());
 				double flange = Double.parseDouble(tfFlange.getText());
 
-				guiControl.createButtonPressed(gauge,radiusLeft,radiusRight,radiusAppro,angleLeft,angleRight,
-						angleAppro,strLeft,strRight,strAppro,offsLeft,offsRight,foot,head,vFrog,kFrog,
-						guide,flange,cbTurnoutGeo.getSelectedIndex(),cbApproType.getSelectedIndex(),svg,obj);
-				
+				guiControl.createButtonPressed(gauge, radiusLeft, radiusRight, radiusAppro, angleLeft, angleRight,
+						angleAppro, strLeft, strRight, strAppro, offsLeft, offsRight, foot, head, vFrog, kFrog, guide,
+						flange, cbTurnoutGeo.getSelectedIndex(), cbApproType.getSelectedIndex(), svg, obj);
+
 			}
 		});
 	}

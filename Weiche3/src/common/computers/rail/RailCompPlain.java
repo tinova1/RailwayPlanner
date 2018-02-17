@@ -19,7 +19,7 @@ public abstract class RailCompPlain {
 			double[] offsets = r.getOffsets();
 			// String[] positions = r.getPositions();
 			for (int i = 0; i < offsets.length; i++) {
-				double offset = offsets[i] + gauge / 2.;
+				double offset = -offsets[i] + gauge / 2.;
 				if (side == Side.LEFT)
 					offset *= -1.;
 
