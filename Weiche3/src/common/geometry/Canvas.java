@@ -3,7 +3,7 @@ package common.geometry;
 import java.util.ArrayList;
 import java.util.List;
 
-import common.model.railway.Railway;
+import common.railway.Railway;
 
 /*
  * A canvas where all Railway elements are stored, so that all can be exported to svg/obj

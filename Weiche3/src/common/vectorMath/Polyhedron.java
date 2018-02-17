@@ -2,7 +2,7 @@ package common.vectorMath;
 
 import java.util.ArrayList;
 
-import common.io.io_obj;
+import common.io.IO_obj_Utils;
 import common.svgCreator.Tag;
 import common.vectorMath.objects2D.Path;
 import common.vectorMath.objects3D.Axis;
@@ -102,10 +102,10 @@ public class Polyhedron {
 	public String export_obj() {
 		String output = "";
 		for (int i = 0; i < getVerts(global).size(); i++) {
-			output += io_obj.pointToLine(getVerts(global).get(i));
+			output += IO_obj_Utils.pointToLine(getVerts(global).get(i));
 		}
 		for (int i = 0; i < faces.size(); i++) {
-			output += io_obj.faceToLine(getReverseFaces().get(i));
+			output += IO_obj_Utils.faceToLine(getReverseFaces().get(i));
 		}
 		return output + "\n";
 	}

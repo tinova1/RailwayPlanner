@@ -22,9 +22,9 @@ public abstract class Import_obj {
 			while (sc.hasNextLine()) {
 				String line = sc.nextLine();
 				if (line.startsWith("v ")) {
-					verts.add(io_obj.lineToPoint(line));
+					verts.add(IO_obj_Utils.lineToPoint(line));
 				} else if (line.startsWith("f ")) {
-					faces.add(io_obj.lineToFace(line));
+					faces.add(IO_obj_Utils.lineToFace(line));
 				}
 			}
 			sc.close();

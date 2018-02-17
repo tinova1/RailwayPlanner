@@ -1,7 +1,7 @@
 package guiTransfer;
 
 import common.components.Rail;
-import common.model.ew.PathTurnout;
+import common.railway.ew.PathTurnout;
 import common.vectorMath.RotDir;
 import common.vectorMath.objects2D.Arc;
 import common.vectorMath.objects2D.Path;

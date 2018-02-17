@@ -2,16 +2,16 @@ package common.io;
 
 import java.util.List;
 
-import common.components.Kleineisen;
 import common.components.RailDraw;
 import common.components.Tie;
 import common.geometry.Canvas;
-import common.model.railway.Railway;
+import common.railway.Railway;
 import common.svgCreator.Entry;
 import common.svgCreator.SVGExporter;
 import common.svgCreator.SVGFile;
 import common.svgCreator.Tag;
 import common.vectorMath.Orientation;
+import deprecated.Kleineisen;
 
 public class Export_svg {
 

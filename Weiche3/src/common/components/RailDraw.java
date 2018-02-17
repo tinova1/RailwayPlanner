@@ -1,6 +1,7 @@
 package common.components;
 
 import common.vectorMath.objects2D.Curve;
+import utils.Side;
 
 public class RailDraw {
 

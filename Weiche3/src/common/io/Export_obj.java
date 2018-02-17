@@ -5,10 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import common.components.Kleineisen;
 import common.components.Tie;
 import common.geometry.Canvas;
-import common.model.railway.Railway;
+import common.railway.Railway;
+import deprecated.Kleineisen;
 
 public abstract class Export_obj {
 

@@ -1,6 +1,6 @@
 package views;
 
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -12,59 +12,36 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
-import javax.swing.JToggleButton;
-import javax.swing.ImageIcon;
 import javax.swing.UIManager;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JTextPane;
 import javax.swing.JButton;
-import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
-import javax.swing.Action;
-import javax.swing.event.ChangeListener;
 
 import common.components.Rail;
 import common.geometry.Canvas;
 import common.io.Export_obj;
 import common.io.Export_svg;
-import common.model.railway.RW_Path;
-import common.model.railway.Railway;
+import common.railway.Railway;
+import common.railway.plain.RailwayPlain;
 import common.vectorMath.RotDir;
 import common.vectorMath.objects2D.Arc;
 import common.vectorMath.objects2D.Path;
-import common.vectorMath.objects3D.Line;
 import common.vectorMath.objects3D.LineSeg;
 import common.vectorMath.objects3D.Point;
 import guiTransfer.CreateTurnout;
 import guiTransfer.ParseInput;
+import guiTransfer.guiControl;
 
-import javax.swing.event.ChangeEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.border.TitledBorder;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.beans.PropertyChangeListener;
 import java.util.Date;
 import java.beans.PropertyChangeEvent;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
-import javax.swing.JToolBar;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 
 public class CreateTurnoutGUI extends JFrame {
-
-	private final int tfWidth = 120;
 
 	private JPanel contentPane;
 	private JTextField tfRightRadius;
@@ -895,55 +872,10 @@ public class CreateTurnoutGUI extends JFrame {
 				double guide = Double.parseDouble(tfGuide.getText());
 				double flange = Double.parseDouble(tfFlange.getText());
 
-				switch (cbTurnoutGeo.getSelectedIndex()) {
-				case 0: // straight left-hand turnout
-					angleRight = 0.;
-					break;
-				case 1: // straight right-hand turnout
-					angleLeft = 0.;
-					radiusRight *= -1.;
-					break;
-				case 2: // curved left-hand turnout
-					offsLeft = 0.;
-					break;
-				case 3: // curved right-hand turnout
-					offsRight = 0.;
-					radiusRight *= -1.;
-					radiusLeft *= -1.;
-					break;
-				}
-				final Rail rail = new Rail(foot, head, vFrog, kFrog, guide, flange);
-				Canvas canvas = new Canvas();
-				canvas.addToRailwayList(CreateTurnout.pathTurnout(rail, gauge, radiusLeft, radiusRight, angleLeft,
-						angleRight, strLeft, strRight));
-
-				final Path approPath = new Path();
-				switch (cbApproType.getSelectedIndex()) {
-				case 0: // straight
-					approPath.add(new LineSeg(new Point(0, 0), new Point(-strAppro, 0)));
-					break;
-				case 1: // left
-					approPath.add(new Arc(new Point(0, radiusAppro), radiusAppro, -Math.PI / 2.,
-							-Math.PI / 2. - angleAppro, RotDir.NEG));
-					break;
-				case 2: // right
-					approPath.add(new Arc(new Point(0, -radiusAppro), radiusAppro, Math.PI / 2.,
-							Math.PI / 2. + angleAppro, RotDir.POS));
-					break;
-				}
-				Railway approach;
-				approach = new RW_Path(gauge, rail, approPath);
-				canvas.addToRailwayList(approach);
-				Date date = new Date();
-				final String fileName = date.toString();
-				if (obj) {
-					Export_obj.ausgabe(fileName, canvas);
-				}
-				if (svg) {
-					Export_svg s = new Export_svg(canvas);
-					s.ausgabe(fileName);
-				}
-				System.out.println("Fertig");
+				guiControl.createButtonPressed(gauge,radiusLeft,radiusRight,radiusAppro,angleLeft,angleRight,
+						angleAppro,strLeft,strRight,strAppro,offsLeft,offsRight,foot,head,vFrog,kFrog,
+						guide,flange,cbTurnoutGeo.getSelectedIndex(),cbApproType.getSelectedIndex(),svg,obj);
+				
 			}
 		});
 	}

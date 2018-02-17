@@ -1,5 +1,7 @@
 package common.components;
 
+import utils.Positions;
+
 public class Rail {
 
 	private double railFoot = .5;
