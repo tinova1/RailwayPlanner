@@ -13,14 +13,13 @@ import common.vectorMath.objects2D.Path;
 import common.vectorMath.objects3D.CSYS;
 
 public class PathTurnout extends Railway {
-	private final Path pathLeft, pathRight, tiePath;
+	private final Path pathLeft, pathRight;
 
-	public PathTurnout(double gauge, Rail r, final Path pathLeft, final Path pathRight, final Path tiePath) {
+	public PathTurnout(double gauge, Rail r, final Path pathLeft, final Path pathRight) {
 
 		super(new CSYS(), new Tie(), r, gauge);
 		this.pathLeft = pathLeft;
 		this.pathRight = pathRight;
-		this.tiePath = tiePath;
 
 		this.calcTies();
 		this.calcRail();
@@ -61,10 +60,6 @@ public class PathTurnout extends Railway {
 
 	public Path getPathRight() {
 		return this.pathRight;
-	}
-
-	public Path tiepath() {
-		return this.tiePath;
 	}
 
 	// private void calcKlein() {

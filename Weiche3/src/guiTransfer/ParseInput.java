@@ -31,11 +31,10 @@ public class ParseInput {
 			String[] numDenum = input.split(":");
 			for (int i = 0; i < numDenum.length; i++) {
 				numDenum[i] = onlyDigits(numDenum[i]);
-
 			}
 			inputVal = Math.atan2(Double.parseDouble(numDenum[0]), Double.parseDouble(numDenum[1]));
 		} else if (input.endsWith("rad") || input.endsWith("r")) {
-			inputVal = Math.toRadians(inputVal);
+			inputVal = Math.toDegrees(inputVal);
 		}
 		return inputVal;
 	}

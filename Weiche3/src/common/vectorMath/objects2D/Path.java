@@ -413,7 +413,7 @@ public class Path extends Curve {
 	}
 
 	public Point pointAt(double length) {
-		final Point p = this.startPoint();
+		final Point p = this.startPoint().clone();
 		for (int i = 0; i < this.curves.size() && length > 0; i++) {
 			final Curve c = this.curves.get(i);
 			final double maxLength = Math.min(length, c.getLength());

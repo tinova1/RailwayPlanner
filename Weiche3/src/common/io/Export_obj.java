@@ -7,24 +7,25 @@ import java.util.ArrayList;
 
 import common.components.Kleineisen;
 import common.components.Tie;
+import common.geometry.Canvas;
 import common.model.railway.Railway;
 
 public abstract class Export_obj {
 
-	public static void ausgabe(String fileName, Railway w) {
-		ArrayList<Tie> tie_list = w.getTieBand().getTieList();
-
+	public static void ausgabe(String fileName, Canvas c) {
 		try {
 			FileWriter ausgabe = new FileWriter(new File(fileName + ".obj"));
-
-			for (int i = 0; i < tie_list.size(); i++) {
-				ausgabe.write("g Tie" + tie_list.get(i).hashCode() + "\n\n");
-				ausgabe.write(tie_list.get(i).getCube().export_obj());
-				ArrayList<Kleineisen> kleinList = tie_list.get(i).getKleinList();
-				for (int j = 0; j < kleinList.size(); j++) {
-					if (kleinList.get(j).getActive()) {
-						ausgabe.write("g Kleineisen" + kleinList.get(j).hashCode() + "\n\n");
-						ausgabe.write(kleinList.get(j).getPoly().export_obj());
+			for (Railway w : c.getRailwayList()) {
+				ArrayList<Tie> tie_list = w.getTieBand().getTieList();
+				for (int i = 0; i < tie_list.size(); i++) {
+					ausgabe.write("g Tie" + tie_list.get(i).hashCode() + "\n\n");
+					ausgabe.write(tie_list.get(i).getCube().export_obj());
+					ArrayList<Kleineisen> kleinList = tie_list.get(i).getKleinList();
+					for (int j = 0; j < kleinList.size(); j++) {
+						if (kleinList.get(j).getActive()) {
+							ausgabe.write("g Kleineisen" + kleinList.get(j).hashCode() + "\n\n");
+							ausgabe.write(kleinList.get(j).getPoly().export_obj());
+						}
 					}
 				}
 			}

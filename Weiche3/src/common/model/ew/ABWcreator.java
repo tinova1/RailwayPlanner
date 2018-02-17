@@ -24,7 +24,7 @@ public class ABWcreator {
 	}
 
 	public PathTurnout pathTurnout() {
-		return new PathTurnout(this.gauge, this.r, this.pathLeft(), this.pathRight(), this.tiePath());
+		return new PathTurnout(this.gauge, this.r, this.pathLeft(), this.pathRight());
 	}
 
 	private Path pathLeft() {
@@ -48,12 +48,12 @@ public class ABWcreator {
 			return new Path(seg);
 		} else if (middleRadius > 0) {
 			final double st = -Math.PI / 2.;
-			final double en = Math.PI/2.;
+			final double en = Math.PI / 2.;
 			final Arc arc = new Arc(new Point(0, middleRadius), middleRadius, st, en, RotDir.POS);
 			return new Path(arc);
 		} else {// middleRadius<0
 			final double st = Math.PI / 2.;
-			final double en = -Math.PI/2.;
+			final double en = -Math.PI / 2.;
 			final Arc arc = new Arc(new Point(0, middleRadius), middleRadius, st, en, RotDir.NEG);
 			return new Path(arc);
 		}

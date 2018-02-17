@@ -25,7 +25,7 @@ public class EW_gerades {
 	}
 
 	public PathTurnout pathTurnout() {
-		return new PathTurnout(gauge, r, this.pathLeft(), this.pathRight(), this.tiePath());
+		return new PathTurnout(gauge, r, this.pathLeft(), this.pathRight());
 	}
 
 	public Path pathLeft() {
@@ -43,10 +43,6 @@ public class EW_gerades {
 		Path output = new Path();
 		output.add(arc);
 		output.addLineSeg(this.verlaengerung);
-		/*final Point startLine = arc.getEndPoint();
-		final LineSeg line = new LineSeg(startLine, -this.angle, this.verlaengerung);
-		output.add(arc);
-		output.add(line);*/
 		return output;
 	}
 

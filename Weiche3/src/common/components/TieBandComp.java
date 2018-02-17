@@ -13,7 +13,7 @@ public abstract class TieBandComp {
 		TieBand output = new TieBand();
 		int runningNo = startNo;
 		for (double length = start; length <= end; length += t.getDist(), runningNo++) {
-			Tie newtie = new Tie(p.startPoint(), t.getLength(), runningNo, type);
+			Tie newtie = new Tie(p.startPoint().clone(), t.getLength(), runningNo, type);
 			newtie.getCSYS().moveAlong(p, length, true);
 			output.add(newtie);
 		}
