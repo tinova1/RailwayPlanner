@@ -16,7 +16,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 
 import guiTransfer.ParseInput;
-import guiTransfer.guiControl;
 
 import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
@@ -79,11 +78,7 @@ public class CreateTurnoutGUI extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -100,13 +95,17 @@ public class CreateTurnoutGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public CreateTurnoutGUI() {
-
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		initComponents();
 		createEvents();
 
 	}
 
-	private void initComponents() {
+	private void initComponents() {	
 		setTitle("Turnout Generator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 503);

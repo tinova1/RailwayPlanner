@@ -1,4 +1,4 @@
-package guiTransfer;
+package views;
 
 import java.util.Date;
 
@@ -13,8 +13,12 @@ import common.vectorMath.objects2D.Arc;
 import common.vectorMath.objects2D.Path;
 import common.vectorMath.objects3D.LineSeg;
 import common.vectorMath.objects3D.Point;
+import guiTransfer.CreateTurnout;
 
-public abstract class guiControl {
+public class guiControl {
+public guiControl() {
+
+}
 	public static void createButtonPressed(double gauge, double radiusLeft, double radiusRight, double radiusAppro,
 			double angleLeft, double angleRight, double angleAppro, double strLeft, double strRight, double strAppro,
 			double offsLeft, double offsRight, double foot, double head, double vFrog, double kFrog, double guide,
@@ -35,8 +39,8 @@ public abstract class guiControl {
 			radiusRight *= -1.;
 			radiusLeft *= -1.;
 			break;
-		case 4://wye
-			radiusRight*=-1.;
+		case 4:// wye
+			radiusRight *= -1.;
 			break;
 		}
 		final Rail rail = new Rail(foot, head, vFrog, kFrog, guide, flange);
@@ -61,8 +65,8 @@ public abstract class guiControl {
 		Railway approach;
 		approach = new RailwayPlain(gauge, rail, approPath);
 		canvas.addToRailwayList(approach);
-		//Date date = new Date();
-		final String fileName = "ausgabe";//date.toString();
+		// Date date = new Date();
+		final String fileName = "ausgabe";// date.toString();
 		if (obj) {
 			Export_obj.ausgabe(fileName, canvas);
 		}
@@ -70,6 +74,8 @@ public abstract class guiControl {
 			Export_svg s = new Export_svg(canvas);
 			s.ausgabe(fileName);
 		}
-		System.out.println("Fertig "+fileName);
+		System.out.println("Fertig " + fileName);
 	}
+	
+	
 }
