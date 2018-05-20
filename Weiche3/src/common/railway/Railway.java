@@ -3,13 +3,13 @@ package common.railway;
 import java.util.ArrayList;
 import java.util.List;
 
+import common.components.Kleineisen;
 import common.components.Rail;
 import common.components.RailDraw;
 import common.components.Tie;
 import common.computers.tie.TieBand;
 import common.vectorMath.objects3D.CSYS;
 import common.vectorMath.objects3D.Point;
-import deprecated.Kleineisen;
 
 public abstract class Railway {
 	protected Rail r;
@@ -34,7 +34,7 @@ public abstract class Railway {
 
 	protected TieBand tieBand = new TieBand();
 	protected List<RailDraw> railList = new ArrayList<>();
-	protected List<Kleineisen> klein_list = new ArrayList<>();
+	protected List<Kleineisen> kleinList = new ArrayList<>();
 
 	public TieBand getTieBand() {
 		return tieBand;
@@ -52,12 +52,12 @@ public abstract class Railway {
 		railList = input;
 	}
 
-	public List<Kleineisen> getKlein_list() {
-		return klein_list;
+	public List<Kleineisen> getKleinList() {
+		return kleinList;
 	}
 
-	public void setKlein_list(ArrayList<Kleineisen> input) {
-		klein_list = input;
+	public void setKleinList(ArrayList<Kleineisen> input) {
+		kleinList = input;
 	}
 
 	public CSYS getCSYS() {

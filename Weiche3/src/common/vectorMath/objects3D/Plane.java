@@ -2,58 +2,52 @@ package common.vectorMath.objects3D;
 
 import common.vectorMath.VectorUtils;
 
-public class Ebene {
+public class Plane {
 
-	private Point p1, p2, p3, normal;
-
-	// Koordinatenform ax+bx+cx=d
+	
+	//Hessesche Normalenform
 	private double a, b, c, d;
 
-	public Ebene(Point p1, Point p2, Point p3) {
-		this.p1 = p1;
-		this.p2 = p2;
-		this.p3 = p3;
-		Point my = VectorUtils.subtract(p1, p2);
-		Point ny = VectorUtils.subtract(p1, p3);
-		this.normal = VectorUtils.crossP(my, ny);
-		this.normal.normalize();
-
+	public Plane(final Point p1, final Point p2, final Point p3) {
+		final Point my = VectorUtils.subtract(p1, p2);
+		final Point ny = VectorUtils.subtract(p1, p3);
+		final Point normal = VectorUtils.crossP(my, ny);
+		normal.normalize();
 		this.a = normal.getX();
 		this.b = normal.getY();
 		this.c = normal.getZ();
-
-		this.d = VectorUtils.scalar(this.p1, this.normal);
+		this.d = VectorUtils.scalar(p1, normal);
 	}
 
-	public Point getP1() {
-		return p1;
-	}
-
-	public Point getP2() {
-		return p2;
-	}
-
-	public Point getP3() {
-		return p3;
+	public Plane(final Point p1, final Point normal) {
+		final Point normalNormalized = normal.clone();
+		normalNormalized.normalize();
+		this.a = normalNormalized.getX();
+		this.b = normalNormalized.getY();
+		this.c = normalNormalized.getZ();
+		final double x = p1.getX();
+		final double y = p1.getY();
+		final double z = p1.getZ();
+		this.d = this.a * x + this.b * y + this.c * z;
 	}
 
 	public Point getNormal() {
-		return normal;
+		return new Point(this.a, this.b, this.c);
 	}
 
 	public double getA() {
-		return a;
+		return this.a;
 	}
 
 	public double getB() {
-		return b;
+		return this.b;
 	}
 
 	public double getC() {
-		return c;
+		return this.c;
 	}
 
 	public double getD() {
-		return d;
+		return this.d;
 	}
 }

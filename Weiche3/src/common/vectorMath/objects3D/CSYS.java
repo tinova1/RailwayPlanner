@@ -39,18 +39,34 @@ public class CSYS {
 		return this.p.getZ();
 	}
 
-	public Line[] getAxis() {
-		Point[] directions = { //
+	// return directions of x,y,z axis as normalized Points
+	public Point[] getDirs() {
+		final Point[] directions = { //
 				new Point(1, 0, 0), //
 				new Point(0, 1, 0), //
 				new Point(0, 0, 1) };
+		for (int i = 0; i < directions.length; i++) {
+			directions[i].rotate(new Point(0, 0, 0), this.rot);
+			directions[i].scale(this.scale);
+		}
+		return directions;
+	}
+
+	public Line[] getAxis() {
 		Line[] output = new Line[3];
 		for (int i = 0; i < output.length; i++) {
-			directions[i].scale(this.scale);
-			directions[i].rotate(new Point(0, 0, 0), this.rot);
-			output[i] = new Line(this.p, VectorUtils.add(this.p, directions[i]));
+			output[i] = new Line(this.p, VectorUtils.add(this.p, this.getDirs()[i]));
 		}
 		return output;
+	}
+
+	public Plane[] getPlanes() {
+		// get {XY, XZ, YZ} planes
+		// attention when moving planes! p is associative!
+		final Plane XYPlane = new Plane(this.p, this.getDirs()[2]);
+		final Plane XZPlane = new Plane(this.p, this.getDirs()[1]);
+		final Plane YZPlane = new Plane(this.p, this.getDirs()[0]);
+		return new Plane[] { XYPlane, XZPlane, YZPlane };
 	}
 
 	public void scale(final double[] scale) {
@@ -63,11 +79,7 @@ public class CSYS {
 		return this.scale;
 	}
 
-	public void move(final double dx, final double dy, final double dz) {
-		this.p.move(dx, dy, dz);
-	}
-
-	public void move(final double[] dxyz) {
+	public void move(final double... dxyz) {
 		this.p.move(dxyz);
 	}
 
@@ -106,6 +118,10 @@ public class CSYS {
 	public double[] getRot() {
 		return this.rot;
 	}
+	
+	public void setRot(double[] rot) {
+		this.rot=rot;
+	}
 
 	public void mirrorX() {
 		this.p.mirror(Axis.X);
@@ -116,14 +132,13 @@ public class CSYS {
 	public void moveAlong(final Path p, double length, final boolean rotate) {
 		// rotate: should x-axis of CSYS be rotated to be tangent before moving along
 		// path?
-		if (rotate && p.getCurves().size() > 0) {
-			final Curve first = p.getCurves().get(0);
-			if (first instanceof Arc) {
-				this.rot[2] = ((Arc) first).getStart() + Math.PI / 2.;
-			} else if (first instanceof Line) {
-				this.rot[2] = ((Line) first).getAngle();
-			}
+		if (p.getCurves().size() <= 0 || length <= MathUtils.ROUND_ZERO)
+			return;
+
+		if (rotate) {
+			this.rot[2] = p.orthoLineStart().getAngle() - Math.PI / 2.;
 		}
+
 		for (int i = 0; i < p.getCurves().size() && length > 0.; i++) {
 			final Curve c = p.getCurves().get(i);
 			if (c instanceof Arc) {
@@ -131,8 +146,8 @@ public class CSYS {
 				final double angleLen = MathUtils.toAngle(length, arc.getR());
 				final double angleMax = Math.abs(arc.getArcAngle());
 				double angle = Math.min(angleLen, angleMax);
-				if(arc.getRotDir()==RotDir.NEG) {
-					angle*=-1.;
+				if (arc.getRotDir() == RotDir.NEG) {
+					angle *= -1.;
 				}
 				this.rotate(arc.getC(), new double[] { 0, 0, angle });
 				length -= MathUtils.toLength(Math.abs(angle), arc.getR());

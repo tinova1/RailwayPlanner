@@ -1,10 +1,9 @@
 package common.vectorMath.objects3D;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import common.svgCreator.Tag;
 import common.vectorMath.Orientation;
-import common.vectorMath.Polyhedron;
+import common.vectorMath.VectorUtils;
 import common.vectorMath.objects2D.Path;
 
 public class Cube extends Polyhedron {
@@ -34,18 +33,23 @@ public class Cube extends Polyhedron {
 		this.faces.add(new int[] { 4, 3, 7, 8 });
 		this.faces.add(new int[] { 1, 5, 7, 3 });
 
+		final double dx = this.csys.getScale()[0] / 2.;
+		final double dy = this.csys.getScale()[1] / 2.;
+		final double dz = this.csys.getScale()[2] / 2.;
+
 		switch (method) {
 		case 1:
-			this.getCSYS().move(-.5, -.5, -.5);
+			this.getCSYS().move(-dx, -dy, -dz);
 			break;
 		case 2:
-			this.getCSYS().move(0., 0., .5);
+			this.getCSYS().move(0., 0., -dz);
 			break;
 		case 3:
-			this.getCSYS().move(0., .5, -.5);
+			this.getCSYS().move(0., dy, -dz);
 			break;
 		}
-
+		
+		this.updateTagLocal();
 	}
 
 	public Point getDimensions() {
@@ -62,7 +66,7 @@ public class Cube extends Polyhedron {
 
 	public LineSeg[] project(Axis axis, Orientation o) {
 		LineSeg[] rect = new LineSeg[4];
-		final ArrayList<Point> verts = this.getVerts(o);
+		final List<Point> verts = this.getVerts(o);
 
 		rect[0] = new LineSeg(verts.get(0).project(axis), verts.get(1).project(axis));
 		rect[1] = new LineSeg(verts.get(1).project(axis), verts.get(3).project(axis));
@@ -71,13 +75,9 @@ public class Cube extends Polyhedron {
 		return rect;
 	}
 
-	public Cube clone() {
-		return new Cube(this.getCSYS(), 0);
-	}
-
 	public Path getPath() {
-		Path path = new Path();
-		final ArrayList<Point> vertsGl = this.getVerts(Orientation.GLOBAL);
+		final Path path = new Path();
+		final List<Point> vertsGl = this.getVerts(Orientation.GLOBAL);
 		path.add(new LineSeg(vertsGl.get(0), vertsGl.get(1)));
 		path.add(new LineSeg(vertsGl.get(1), vertsGl.get(3)));
 		path.add(new LineSeg(vertsGl.get(3), vertsGl.get(2)));
@@ -85,7 +85,13 @@ public class Cube extends Polyhedron {
 		return path;
 	}
 
-	public Tag export_svg() {
-		return this.getPath().export_svg();
+	public Point getCenter(final Orientation o) {
+		final Point center = VectorUtils.middle(verts.get(1), verts.get(6));
+		if (o == Orientation.GLOBAL) {
+			center.scale(this.getCSYS().getScale());
+			center.rotate(new Point(0, 0, 0), this.csys.getRot());
+			center.move(this.csys.getPoint());
+		}
+		return center;
 	}
 }

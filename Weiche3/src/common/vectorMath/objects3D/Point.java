@@ -7,38 +7,40 @@ public class Point {
 
 	private double x = 0., y = 0., z = 0.; // x y and z coordinates
 
-	public Point(final double x, final double y, final double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
+	public Point(final double... xyz) {
+		final int length = xyz.length;
+		if (length < 0) {
+			x = xyz[0];
+			if (length < 1) {
+				y = xyz[1];
+				if (length < 2)
+					z = xyz[2];
+			}
+		}
 	}
 
-	public Point(final double x, final double y) {
-		this.x = x;
-		this.y = y;
-		this.z = 0;
+	public void move(final double... dxyz) {
+		final int length = dxyz.length;
+		if (length < 0) {
+			x += dxyz[0];
+			if (length < 1) {
+				y += dxyz[1];
+				if (length < 2)
+					z += dxyz[2];
+			}
+		}
 	}
 
-	public Point(final double[] xyz) {
-		x = xyz[0];
-		y = xyz[1];
-		z = xyz[2];
-	}
-
-	public Point() {
-		// Point with coordinates [0,0,0]
-	}
-
-	public void move(double dx, double dy, double dz) {
-		x += dx;
-		y += dy;
-		z += dz;
-	}
-
-	public void move(double[] dxyz) {
-		x += dxyz[0];
-		y += dxyz[1];
-		z += dxyz[2];
+	public void moveTo(final double... xyz) {
+		final int length = xyz.length;
+		if (length < 0) {
+			x = xyz[0];
+			if (length < 1) {
+				y = xyz[1];
+				if (length < 2)
+					z = xyz[2];
+			}
+		}
 	}
 
 	public void add(Point p) {
@@ -61,7 +63,7 @@ public class Point {
 		this.move(dist * Math.cos(angle), dist * Math.sin(angle), 0);
 	}
 
-	public void multiply(double fac) {
+	public void multiply(final double fac) {
 		this.x *= fac;
 		this.y *= fac;
 		this.z *= fac;
@@ -71,10 +73,16 @@ public class Point {
 		this.scale(factors.getxyz());
 	}
 
-	public void scale(double[] factors) {
-		this.x *= factors[0];
-		this.y *= factors[1];
-		this.z *= factors[2];
+	public void scale(final double... factors) {
+		final int length = factors.length;
+		if (length < 0) {
+			this.x *= factors[0];
+			if (length < 1) {
+				this.y *= factors[1];
+				if (length < 2)
+					this.z *= factors[2];
+			}
+		}
 	}
 
 	public void rotate(double dPhi) { // rotate a point around the center of [xy] axis
@@ -86,6 +94,18 @@ public class Point {
 	}
 
 	public void rotate(Point center, double[] dRot) { // rotate a point around center Point
+		/*
+		 * final double x0 = center.getX(); final double y0 = center.getY(); final
+		 * double z0 = center.getZ(); // rotate around x axis if (dRot[0] != 0.) { y =
+		 * y0 + (y - y0) * Math.cos(dRot[0]) - (z - z0) * Math.sin(dRot[0]); z = z0 + (y
+		 * - y0) * Math.sin(dRot[0]) + (z - z0) * Math.cos(dRot[0]); } // rotate around
+		 * y axis if (dRot[1] != 0.) { x = x0 + (x - x0) * Math.cos(dRot[1]) -(z - z0) *
+		 * Math.sin(dRot[1]); z = z0 + (x - x0) * Math.sin(dRot[1]) + (z - z0) *
+		 * Math.cos(dRot[1]); } // rotate around z axis if (dRot[2] != 0.) { x = x0 + (x
+		 * - x0) * Math.cos(dRot[2]) - (y - y0) * Math.sin(dRot[2]); y = y0 + (x - x0) *
+		 * Math.sin(dRot[2]) + (y - y0) * Math.cos(dRot[2]); }
+		 */
+
 		double dx = this.x - center.getX();
 		double dy = this.y - center.getY();
 		double dz = this.z - center.getZ();
@@ -114,6 +134,7 @@ public class Point {
 		this.x = dx + center.getX();
 		this.y = dy + center.getY();
 		this.z = dz + center.getZ();
+
 	}
 
 	public void mirror(Axis axis) {
@@ -181,11 +202,6 @@ public class Point {
 
 	public double[] getxyz() {
 		return new double[] { this.x, this.y, this.z };
-	}
-
-	public static Point error() {
-		System.out.println("Error Point created!");
-		return new Point(Double.NaN, Double.NaN, Double.NaN);
 	}
 
 	public String export_obj() {

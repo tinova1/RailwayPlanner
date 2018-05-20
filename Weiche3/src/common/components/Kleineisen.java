@@ -1,18 +1,17 @@
-package deprecated;
+package common.components;
 
-import common.components.RailDraw;
-import common.components.Tie;
+import java.util.List;
+
 import common.io.Import_obj;
 import common.svgCreator.Tag;
 import common.vectorMath.Orientation;
-import common.vectorMath.Polyhedron;
 import common.vectorMath.objects3D.Cube;
+import common.vectorMath.objects3D.Polyhedron;
 
 public class Kleineisen {
 	private Polyhedron poly;
 	private RailDraw rail;
 	private Tie tie;
-	private boolean active = true;
 	private String type;
 
 	public Kleineisen(RailDraw rail, Tie tie, String type) {
@@ -29,9 +28,21 @@ public class Kleineisen {
 		this.tie = tie;
 	}
 
-	public Tag export_svg() {
-		return this.getPoly().export_svg();
+	public List<Tag> export_svg() {
+		return this.poly.export_svg();
+		/*
+		 * final String x = this.getPoly().getCSYS().getX() + ""; final String y =
+		 * this.getPoly().getCSYS().getY() + ""; final double rotationDeg =
+		 * Math.toDegrees(this.getPoly().getCSYS().getRot()[2]);
+		 * 
+		 * final Tag imgTag = new Tag("image"); imgTag.addEntry("xlink:href",
+		 * "Kleineisen.svg"); imgTag.addEntry("x", x); imgTag.addEntry("y", y);
+		 * imgTag.addEntry("width", "15mm"); imgTag.addEntry("height", "15mm"); //
+		 * rotate(rotationDeg,x,y) imgTag.addEntry("transform", "rotate(" + rotationDeg
+		 * + "," + x + "," + y + ")"); return imgTag;
+		 */
 	}
+
 	public Polyhedron getPoly() {
 		return this.poly;
 	}
@@ -55,13 +66,5 @@ public class Kleineisen {
 
 	public Tie getTie() {
 		return tie;
-	}
-
-	public boolean getActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
 	}
 }

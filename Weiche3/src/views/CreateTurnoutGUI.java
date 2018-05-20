@@ -74,6 +74,8 @@ public class CreateTurnoutGUI extends JFrame {
 	private JLabel lblApproLength;
 	private JTextField textField;
 
+
+	
 	/**
 	 * Launch the application.
 	 */
@@ -144,7 +146,7 @@ public class CreateTurnoutGUI extends JFrame {
 		lblLeftStrLength = new JLabel("left track straight length [mm]");
 
 		tfLeftStrLength = new JTextField();
-		tfLeftStrLength.setText("100.0");
+		tfLeftStrLength.setText("50.0");
 		tfLeftStrLength.setHorizontalAlignment(SwingConstants.RIGHT);
 		tfLeftStrLength.setColumns(10);
 
@@ -183,7 +185,7 @@ public class CreateTurnoutGUI extends JFrame {
 		lblRightStrLength = new JLabel("right track straight length [mm]");
 
 		tfRightStrLength = new JTextField();
-		tfRightStrLength.setText("100.0");
+		tfRightStrLength.setText("150.0");
 		tfRightStrLength.setHorizontalAlignment(SwingConstants.RIGHT);
 		tfRightStrLength.setColumns(10);
 

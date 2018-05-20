@@ -2,6 +2,7 @@ package common.computers.tie;
 
 import java.util.ArrayList;
 
+import common.components.Kleineisen;
 import common.components.Tie;
 import common.vectorMath.objects3D.Point;
 
@@ -40,6 +41,9 @@ public class TieBand {
 	public void rotate(final Point center, final double dRot) {
 		for (Tie i : tieList) {
 			i.getCube().getCSYS().rotate(center, new double[] { 0, 0, dRot });
+			for (Kleineisen k : i.getKleinList()) {
+				k.getPoly().getCSYS().rotate(center, new double[] { 0, 0, dRot });
+			}
 		}
 	}
 }

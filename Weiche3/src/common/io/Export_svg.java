@@ -1,67 +1,93 @@
 package common.io;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
+import common.components.Kleineisen;
 import common.components.RailDraw;
 import common.components.Tie;
 import common.geometry.Canvas;
 import common.railway.Railway;
 import common.svgCreator.Entry;
-import common.svgCreator.SVGExporter;
 import common.svgCreator.SVGFile;
 import common.svgCreator.Tag;
 import common.vectorMath.Orientation;
-import deprecated.Kleineisen;
 
 public class Export_svg {
 
+	private final double margin = 10;
+
 	private final SVGFile svgFile = new SVGFile();
 
-	private final Canvas c;
+	private final Canvas canvas;
 	private double xMax = -Double.MAX_VALUE;
 	private double xMin = Double.MAX_VALUE;
 	private double yMax = -Double.MAX_VALUE;
 	private double yMin = Double.MAX_VALUE;
 
-	public Export_svg(final Canvas c) {
-		this.c = c;
+	public Export_svg(final Canvas canvas) {
+		this.canvas = canvas;
 	}
 
 	public void ausgabe(final String fileName) {
 		this.createFile();
-		SVGExporter.writeFile(svgFile, fileName + ".svg");
+		try {
+			FileWriter writer = new FileWriter(new File(fileName + ".svg"));
+			writer.write(svgFile.getFile());
+			writer.close();
+		} catch (IOException e) {
+			e.getLocalizedMessage();
+		}
 	}
 
 	private void createFile() {
-		final Tag rootTag = new Tag("svg", false);
+		final Tag rootTag = new Tag("svg");
 		rootTag.addEntry("version", "1.1");
 		rootTag.addEntry("xmlns", "http://www.w3.org/2000/svg");
+		rootTag.addEntry("xmlns:xlink", "http://www.w3.org/1999/xlink");
 		rootTag.addEntry("transform", "scale(1,-1)");
 		svgFile.addElement(rootTag);
 
-		final Tag gTag = new Tag("g", false);
+		final Tag gTag = new Tag("g");
 		gTag.addEntry("stroke", "black");
 		gTag.addEntry("stroke-width", "0.1");
 		gTag.addEntry("fill", "none");
 
-		for (Railway w : c.getRailwayList()) {
+		for (Railway w : canvas.getRailwayList()) {
+			///////
+			// Ties
+			///////
 			List<Tie> tieList = w.getTieBand().getTieList();
 			for (Tie i : tieList) {
 				gTag.addComment("Tie");
-				gTag.addElement(i.export_svg());
-				for (Kleineisen k : i.getKleinList()) {
-					gTag.addComment("Kleineisen");
-					gTag.addElement(k.export_svg());
-				}
+				List<Tag> elements = i.export_svg();
+				for (Tag ele : elements)
+					gTag.addElement(ele);
 				this.setNewBounds(i);
 			}
 			this.setMargin();
-
+			///////
+			// Rails
+			///////
 			List<RailDraw> railList = w.getRailList();
 			for (RailDraw r : railList) {
 				gTag.addComment("Rail " + r.hashCode());
 				gTag.addElement(r.getCurve().export_svg());
 			}
+			///////
+			// Kleineisen
+			///////
+			/*
+			for (Tie i : tieList) {
+				for (Kleineisen k : i.getKleinList()) {
+					gTag.addComment("Kleineisen");
+					List<Tag> elements = k.export_svg();
+					for (Tag ele : elements)
+						gTag.addElement(ele);
+				}
+			}*/
 		}
 
 		rootTag.addEntry(this.widthEntry());
@@ -78,7 +104,6 @@ public class Export_svg {
 	}
 
 	private void setMargin() {
-		final double margin = 10;
 		xMax += margin;
 		yMax += margin;
 		yMin -= margin;

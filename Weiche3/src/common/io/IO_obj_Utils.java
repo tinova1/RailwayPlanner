@@ -5,7 +5,7 @@ import common.vectorMath.objects3D.Point;
 
 public abstract class IO_obj_Utils {
 
-	public static Point lineToPoint(String line) {
+	static Point lineToPoint(String line) {
 		if (line.startsWith("v ")) {
 			String[] values = line.split(" ");
 			double x = Double.parseDouble(values[1]);
@@ -25,7 +25,7 @@ public abstract class IO_obj_Utils {
 		return "v " + x + " " + y + " " + z + "\n";
 	}
 
-	public static int[] lineToFace(String line) {
+	static int[] lineToFace(String line) {
 		if (line.startsWith("f ")) {
 			String[] raw = line.split(" ");
 			int[] ausgabe = new int[raw.length - 1];
@@ -36,7 +36,6 @@ public abstract class IO_obj_Utils {
 		} else {
 			return new int[0];
 		}
-
 	}
 
 	public static String faceToLine(int[] face) {
@@ -47,13 +46,11 @@ public abstract class IO_obj_Utils {
 		return output + "\n";
 	}
 
-	private static String stopAt(String string, char endChar) {
+	private static String stopAt(final String string, final char endChar) {
 		int i;
-		for (i = 0; i < string.length(); i++) {
-			if (string.charAt(i) == endChar) {
+		for (i = 0; i < string.length(); i++) 
+			if (string.charAt(i) == endChar) 
 				break;
-			}
-		}
 		return string.substring(0, i);
 	}
 

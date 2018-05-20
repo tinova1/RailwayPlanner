@@ -19,7 +19,8 @@ public class LineSeg extends Line {
 
 	public LineSeg(Point p, double angle, double length) {
 		super(p, angle);
-		this.direction.multiply(length);
+		final Point direction = this.getDir();
+		direction.multiply(length);
 		this.endPoint = VectorUtils.add(this.startPoint, direction);
 	}
 

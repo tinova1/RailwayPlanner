@@ -1,5 +1,9 @@
 package common.svgCreator;
-
+/*
+ * An entry for a tag, like this: 
+ * stroke="black"
+ * It has a name (stroke) and a value (black). Both are saved as variables
+ */
 public class Entry {
 	private final String name;
 	private final String value;

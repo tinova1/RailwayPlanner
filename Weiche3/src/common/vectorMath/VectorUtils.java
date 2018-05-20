@@ -24,10 +24,10 @@ public abstract class VectorUtils extends MathUtils {
 		return new Point(x, y, z);
 	}
 
-	public static Point add(Point p1, Point p2) {
-		double x = p2.getX() + p1.getX();
-		double y = p2.getY() + p1.getY();
-		double z = p2.getZ() + p1.getZ();
+	public static Point add(final Point p1, final Point p2) {
+		final double x = p2.getX() + p1.getX();
+		final double y = p2.getY() + p1.getY();
+		final double z = p2.getZ() + p1.getZ();
 		return new Point(x, y, z);
 	}
 

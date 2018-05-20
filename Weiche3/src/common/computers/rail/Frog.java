@@ -7,6 +7,7 @@ import common.components.RailDraw;
 import common.vectorMath.objects2D.Curve;
 import common.vectorMath.objects2D.Path;
 import common.vectorMath.objects3D.Line;
+import utils.Positions;
 import utils.Side;
 
 public class Frog {
@@ -28,13 +29,12 @@ public class Frog {
 	private void computeOutline() {
 		Rail r = new Rail();
 		final double[] offsets = r.getOffsets();
-		final String[] positions = r.getPositions();
 		for (int i = 0; i < offsets.length; i++) {
-			compute(offsets[i], positions[i], i == 0);
+			compute(offsets[i], Positions.values()[i], i == 0);
 		}
 	}
 
-	private void compute(double dversatz, String position, final boolean first) {
+	private void compute(double dversatz, final Positions position, final boolean first) {
 		// dversatz nach positiv nach innen
 		// versatz nach rechts
 		final double versatz = this.gauge / 2. - dversatz;
@@ -53,7 +53,7 @@ public class Frog {
 	private Line trimLineRightFrog;
 
 	private ArrayList<RailDraw> leftTrackRightTongueAndFrog(final double versatz, final double versatzFlange,
-			final String position, final boolean first) {
+			final Positions position, final boolean first) {
 		// first: when first, frog is trimmed at given length, otherwise trimmed via
 		// trimLine
 		ArrayList<RailDraw> output = new ArrayList<>();
@@ -67,15 +67,17 @@ public class Frog {
 		} else {
 			frog = (Path) frog.trimClone(trimLineRightFrog, false);
 		}
-		output.add(new RailDraw(tongue, "TongueLeft", Side.LEFT, position, Side.RIGHT));
-		output.add(new RailDraw(frog, "FrogRight", Side.RIGHT, position, Side.LEFT));
+		// tongue left
+		output.add(new RailDraw(tongue, Side.LEFT, position, Side.RIGHT));
+		// frog right
+		output.add(new RailDraw(frog, Side.LEFT, position, Side.RIGHT));
 		return output;
 	}
 
 	private Line trimLineLeftFrog;
 
 	private ArrayList<RailDraw> rightTrackLeftTongueAndFrog(final double versatz, final double versatzFlange,
-			final String position, final boolean first) {
+			final Positions position, final boolean first) {
 		// first: when first, frog is trimmed at given length, otherwise trimmed via
 		// trimLine
 		ArrayList<RailDraw> output = new ArrayList<>();
@@ -89,18 +91,22 @@ public class Frog {
 		} else {
 			frog = (Path) frog.trimClone(trimLineLeftFrog, false);
 		}
-		output.add(new RailDraw(tongue, "TongueRight", Side.LEFT, position, Side.RIGHT));
-		output.add(new RailDraw(frog, "FrogLeft", Side.RIGHT, position, Side.LEFT));
+		// tongue right
+		output.add(new RailDraw(tongue, Side.RIGHT, position, Side.LEFT));
+		// frog left
+		output.add(new RailDraw(frog, Side.RIGHT, position, Side.LEFT));
 		return output;
 	}
 
-	private ArrayList<RailDraw> frogRails(final double versatz, final String position) {
+	private ArrayList<RailDraw> frogRails(final double versatz, final Positions position) {
 		final Path leftTrackRightRail = pathLeft.offsetClone(versatz);
 		final Path rightTrackLeftRail = pathRight.offsetClone(-versatz);
 		final Curve[] curves = leftTrackRightRail.trimTwoClone(rightTrackLeftRail, true, true);
 		ArrayList<RailDraw> output = new ArrayList<>();
-		output.add(new RailDraw(curves[0], "leftTrackRightRailFrog", Side.LEFT, position, Side.RIGHT));
-		output.add(new RailDraw(curves[1], "rightTrackLeftRailFrog", Side.RIGHT, position, Side.LEFT));
+		// leftTrackRightRailFrog
+		output.add(new RailDraw(curves[0], Side.RIGHT, position, Side.RIGHT));
+		// rightTrackLeftRailFrog
+		output.add(new RailDraw(curves[1], Side.LEFT, position, Side.LEFT));
 		return output;
 	}
 

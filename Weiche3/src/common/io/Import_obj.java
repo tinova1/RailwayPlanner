@@ -3,17 +3,18 @@ package common.io;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-import common.vectorMath.Polyhedron;
 import common.vectorMath.objects3D.Point;
+import common.vectorMath.objects3D.Polyhedron;
 
 public abstract class Import_obj {
 
-	public static Polyhedron import_obj(String fileName) {
+	public static Polyhedron import_obj(final String fileName) {
 
-		ArrayList<Point> verts = new ArrayList<>();
-		ArrayList<int[]> faces = new ArrayList<>();
+		final List<Point> verts = new ArrayList<>();
+		final List<int[]> faces = new ArrayList<>();
 
 		try {
 			File obj = new File(fileName);
@@ -34,7 +35,8 @@ public abstract class Import_obj {
 			e.printStackTrace();
 			System.exit(1);
 		}
-
-		return new Polyhedron(verts, faces);
+		Polyhedron poly = new Polyhedron(verts, faces);
+		poly.updateTagLocal();
+		return poly;
 	}
 }

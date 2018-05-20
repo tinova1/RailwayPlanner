@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import common.components.Rail;
 import common.components.Tie;
+import common.computers.kleineisen.KleinCompPathTurnout;
+import common.computers.rail.RailCompPathKr;
 import common.computers.tie.TieBand;
 import common.computers.tie.TieBandComp;
 import common.railway.Railway;
@@ -15,7 +17,14 @@ import common.vectorMath.objects3D.Point;
 
 public class PathKr extends Railway {
 
-	private final Path[] path = new Path[4];
+	// * Schemabild der Kreuzung
+	// *              .-' 1
+	// *           .-'
+	// * 2 ------0------- 4
+	// *     .-'
+	// * 3 -'
+
+	private final Path[] path = new Path[4]; // {path13, path31, path24, path42}
 	private final Path path01;
 	private final Path path02;
 	private final Path path03;
@@ -25,23 +34,37 @@ public class PathKr extends Railway {
 
 	public PathKr(final double gauge, final Rail r, final Path path13, final Path path24) {
 		super(new CSYS(), new Tie(), r, gauge);
+		intersControl(path13, path24);
 		this.path[0] = path13.clone();
 		path13.reverse();
 		this.path[1] = path13;
 		this.path[2] = path24.clone();
 		path24.reverse();
 		this.path[3] = path24;
-		if (this.crossing() == null) {
-			System.out.println("Pfade schneiden sich nicht oder mehrfach!");
-		}
+
 		this.path01 = this.path(1);
 		this.path02 = this.path(2);
 		this.path03 = this.path(3);
 		this.path04 = this.path(4);
 
 		this.calcTies();
-
 		this.railCompKr.calcRails();
+		this.calcKlein();
+	}
+
+	private static void intersControl(final Path path1, final Path path2) {
+		/*
+		 * Exit, if paths have 0 or more than one intersection
+		 */
+		final Point[] intersection = path1.intersection(path2);
+		if (intersection.length == 1)
+			return;
+		else if (intersection.length < 1)
+			System.out.println("Pfade schneiden sich nicht!");
+		else // intersection.length > 1
+			System.out.println("Pfade schneiden sich mehrmals!");
+		System.exit(-1);
+
 	}
 
 	public Path[] getPath() {
@@ -49,19 +72,19 @@ public class PathKr extends Railway {
 	}
 
 	private Point crossing() {
+		/*
+		 * Gibt den Schnittpunkt beide Kreuzungspfade zurück Wenn sich die Pfade nicht
+		 * oder mehrmals schneiden, wird null zurückgegeben
+		 */
 		final Point[] intersection = path[0].intersection(path[2]);
 		if (intersection.length == 1)
-			return path[0].intersection(path[2])[0];
+			return intersection[0];
 		else
 			return null;
 	}
 
-	private Path path(final int to) {
+	private Path path(/* int from=0 */ final int to) {
 		// from intersection to point
-		final Point[] inters = path[0].intersection(path[2]);
-		if (inters.length == 0) {
-			System.out.println("Pfade schneiden sich nicht!");
-		}
 		final Path path13 = this.path[0].clone();
 		final Path path24 = this.path[2].clone();
 		switch (to) {
@@ -116,10 +139,10 @@ public class PathKr extends Railway {
 		final double l2 = this.path02.getLength();
 		final double l3 = this.path03.getLength();
 		final double l4 = this.path04.getLength();
-		final TieBand tb1 = TieBandComp.path(maxRight, l1, path01, 0, "L1", tie);
-		final TieBand tb2 = TieBandComp.path(maxLeft, l2, path02, 0, "L2", tie);
-		final TieBand tb3 = TieBandComp.path(maxLeft, l3, path03, 0, "L3", tie);
-		final TieBand tb4 = TieBandComp.path(maxRight, l4, path04, 0, "L4", tie);
+		final TieBand tb1 = TieBandComp.path(maxRight, l1, path01, 0, tie);
+		final TieBand tb2 = TieBandComp.path(maxLeft, l2, path02, 0, tie);
+		final TieBand tb3 = TieBandComp.path(maxLeft, l3, path03, 0, tie);
+		final TieBand tb4 = TieBandComp.path(maxRight, l4, path04, 0, tie);
 
 		this.tieBand.add(tbRight);
 		this.tieBand.add(tbLeft);
@@ -127,6 +150,10 @@ public class PathKr extends Railway {
 		this.tieBand.add(tb2);
 		this.tieBand.add(tb3);
 		this.tieBand.add(tb4);
+	}
+
+	private void calcKlein() {
+		this.kleinList = KleinCompPathTurnout.compute(this, true);
 	}
 
 	private double startValue(final Tie t) {

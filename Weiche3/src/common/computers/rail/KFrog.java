@@ -8,11 +8,12 @@ import common.components.RailDraw;
 import common.vectorMath.objects2D.Path;
 import common.vectorMath.objects3D.Line;
 import utils.Positions;
+import utils.Side;
 
 public class KFrog {
 	private static final boolean f = false;
 	private static final boolean t = true;
-	
+
 	private final Rail r;
 	private final Path[] paths = new Path[2];
 	private Line[] trimLines = new Line[2];
@@ -32,9 +33,9 @@ public class KFrog {
 
 	private void makeKFrog() {
 		for (final Positions pos : Positions.values()) {
-		//Positions pos = Positions.head_inner;
+			// Positions pos = Positions.head_inner;
 			this.currentPos = pos;
-			this.createRails(pos.getIndex() == 0);
+			this.createRails(pos);
 		}
 	}
 
@@ -48,11 +49,12 @@ public class KFrog {
 		return rails;
 	}
 
-	private void createRails(final boolean first) {
+	private void createRails(final Positions position) {
 		final Path path1 = this.rails()[0];
 		final Path path2 = this.rails()[1];
 		path1.trim(this.rails()[1], t);
 		path2.trim(this.rails()[0], f);
+		final boolean first = position == Positions.HEAD_INNER;
 		if (first) {
 			path1.trimAt(this.r.getKFrogLength(), f);
 			path2.trimAt(this.r.getKFrogLength(), t);
@@ -63,7 +65,7 @@ public class KFrog {
 			path2.trim(this.trimLines[1], t);
 		}
 		path1.add(path2);
-		this.railList.add(new RailDraw(path1));
+		this.railList.add(new RailDraw(path1,Side.UNKNOWN, position, Side.RIGHT)); //????
 	}
 
 }

@@ -1,13 +1,13 @@
 package common.components;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import common.svgCreator.Tag;
 import common.vectorMath.objects3D.CSYS;
 import common.vectorMath.objects3D.Cube;
-import common.vectorMath.objects3D.Line;
+import common.vectorMath.objects3D.LineSeg;
 import common.vectorMath.objects3D.Point;
-import deprecated.Kleineisen;
 
 public class Tie {
 
@@ -21,27 +21,24 @@ public class Tie {
 
 	private double arcLength;
 	private int number;
-	private String type;
 
 	private ArrayList<Kleineisen> kleinList = new ArrayList<>();
 
 	private Cube cube;
 
-	public Tie(final Point p, double l, int number, String type) {
+	public Tie(final Point p, double l, int number) {
 		this.length = l;
 		this.csys = new CSYS(p, //
 				new double[] { wid, length, height }, //
 				new double[] { 0, 0, 0 });
 		this.cube = new Cube(this.csys, 2);
 		this.number = number;
-		this.type = type;
 	}
 
-	public Tie(int number, String type) {
+	public Tie(int number) {
 		this.csys = new CSYS(new Point(), new double[] { wid, length, height }, new double[3]);
 		cube = new Cube(this.csys, 2);
 		this.number = number;
-		this.type = type;
 	}
 
 	public Tie() {
@@ -80,25 +77,17 @@ public class Tie {
 		return this.csys;
 	}
 
-	// represents Tie as line to compute Kleineisen
-	public Line getLine() {
-		return this.getCSYS().getAxis()[1];
-	}
-
 	public Point[] endPoints() {
 		final Point pLeft = this.csys.getPoint().clone();
-		pLeft.move(this.length / 2., this.csys.getRot()[2]+Math.PI/2.);
+		pLeft.move(this.length / 2., this.csys.getRot()[2] + Math.PI / 2.);
 		final Point pRight = this.csys.getPoint().clone();
-		pRight.move(-this.length / 2., this.csys.getRot()[2]+Math.PI/2.);
+		pRight.move(-this.length / 2., this.csys.getRot()[2] + Math.PI / 2.);
 		return new Point[] { pLeft, pRight };
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
+	// represents Tie as line to compute Kleineisen
+	public LineSeg getLineSeg() {
+		return new LineSeg(this.endPoints()[0], this.endPoints()[1]);
 	}
 
 	public int getNumber() {
@@ -122,7 +111,7 @@ public class Tie {
 		this.arcLength = arcLength;
 	}
 
-	public Tag export_svg() {
+	public List<Tag> export_svg() {
 		return this.cube.export_svg();
 	}
 }

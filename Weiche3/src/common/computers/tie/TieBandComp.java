@@ -10,11 +10,11 @@ import common.vectorMath.objects3D.Line;
 import common.vectorMath.objects3D.Point;
 
 public abstract class TieBandComp {
-	public static TieBand path(double start, double end, Path p, int startNo, String type, Tie t) {
+	public static TieBand path(double start, double end, Path p, int startNo, Tie t) {
 		TieBand output = new TieBand();
 		int runningNo = startNo;
 		for (double length = start; length <= end; length += t.getDist(), runningNo++) {
-			Tie newtie = new Tie(p.startPoint().clone(), t.getLength(), runningNo, type);
+			Tie newtie = new Tie(p.getStartPoint().clone(), t.getLength(), runningNo);
 			newtie.getCSYS().moveAlong(p, length, true);
 			output.add(newtie);
 		}
@@ -22,13 +22,13 @@ public abstract class TieBandComp {
 	}
 
 	public static TieBand pathWithBorder(final double start, final double end, final Path path, final Path border,
-			final int startNo, final String type, final Tie t) {
+			final int startNo, final Tie t) {
 		TieBand output = new TieBand();
 		double s_laenge_neu = t.getLength();
 		int runningNo = startNo;
 		for (double length = start; s_laenge_neu <= t.getLongest()
 				&& length <= path.getLength(); length += t.getDist(), runningNo++) {
-			Tie newtie = new Tie(new Point(0, 0), t.getLength(), runningNo, type);
+			Tie newtie = new Tie(new Point(0, 0), t.getLength(), runningNo);
 			newtie.getCSYS().moveAlong(path, length, true);
 			double newTieLength = newTieLength(newtie, border);
 			if (Double.isInfinite(newTieLength)) {
@@ -47,7 +47,7 @@ public abstract class TieBandComp {
 		final double maxPathLength = Math.min(pathLeft.getLength(), pathRight.getLength());
 		final Path borderLeft = pathLeft.offsetClone(-t.getLength() / 2.);
 		final Path borderRight = pathRight.offsetClone(t.getLength() / 2.);
-		for (double length = t.getDist()/2.; length < maxPathLength; length += t.getDist()) {
+		for (double length = t.getDist() / 2.; length < maxPathLength; length += t.getDist()) {
 			final Point pLeft = pathLeft.pointAt(length);
 			final Point pRight = pathRight.pointAt(length);
 			if (Dist.dist2(pLeft, pRight) > MathUtils.ROUND_ZERO) {
@@ -57,9 +57,9 @@ public abstract class TieBandComp {
 					final Point pBorderRight = borderRight.intersection(line)[0];
 					final Point origin = VectorUtils.middle(pBorderLeft, pBorderRight);
 					final double tieLength = Dist.dist(pBorderLeft, pBorderRight);
-					if(tieLength>t.getLongest()) 
+					if (tieLength > t.getLongest())
 						break;
-					final Tie newTie = new Tie(origin, tieLength, 0, "");
+					final Tie newTie = new Tie(origin, tieLength, 0);
 					double angle = line.getAngle();
 					if (angle > 0) {
 						angle -= Math.PI / 2.;
@@ -72,16 +72,16 @@ public abstract class TieBandComp {
 					break;
 				}
 			} else {
-				final Point startPoint = pathLeft.startPoint();
-				output.add(new Tie(startPoint, t.getLength(), 0, ""));
+				final Point startPoint = pathLeft.getStartPoint();
+				output.add(new Tie(startPoint, t.getLength(), 0));
 			}
 		}
 		return output;
 	}
 
-	private static double newTieLength(Tie t, Curve c) {
-		Point center = t.getCube().getCSYS().getPoint();
-		Point connection = t.getLine().getDir();
+	private static double newTieLength(final Tie t, final Curve c) {
+		final Point center = t.getCube().getCSYS().getPoint();
+		final Point connection = t.getLineSeg().getDir();
 		return 2. * Math.abs(Dist.projDist(center, connection, c));
 	}
 }

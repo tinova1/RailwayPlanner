@@ -1,11 +1,13 @@
 package common.computers.rail;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import common.components.Rail;
 import common.components.RailDraw;
 import common.railway.ew.PathTurnout;
 import common.vectorMath.objects2D.Path;
+import utils.Positions;
 import utils.Side;
 
 public class RailCompPathTurnout {
@@ -21,10 +23,9 @@ public class RailCompPathTurnout {
 	public ArrayList<RailDraw> computeOutline() {
 		ArrayList<RailDraw> output = new ArrayList<>();
 		final double[] offsets = r.getOffsets();
-		final String[] positions = r.getPositions();
 		for (int i = 0; i < offsets.length; i++) {
 			final boolean isFirst = (i == 0);
-			ArrayList<RailDraw> computed = compute(offsets[i], positions[i], isFirst);
+			List<RailDraw> computed = compute(offsets[i], Positions.values()[i], isFirst);
 			output.addAll(computed);
 		}
 		final Frog frog = new Frog(w.getPathLeft(), w.getPathRight(), w.getRail(), w.getGauge());
@@ -32,28 +33,30 @@ public class RailCompPathTurnout {
 		return output;
 	}
 
-	private ArrayList<RailDraw> compute(double dversatz, String position, final boolean first) {
+	private List<RailDraw> compute(double dversatz, Positions position, final boolean first) {
 		// dversatz nach positiv nach innen
 		// versatz nach rechts
 		final double versatz = this.w.getGauge() / 2. - dversatz;
 
-		ArrayList<RailDraw> output = new ArrayList<>();
+		List<RailDraw> output = new ArrayList<>();
 		output.addAll(this.leftTrackLeftRail(versatz, position));
 		output.addAll(this.rightTrackRightRail(versatz, position));
 		return output;
 	}
 
-	private ArrayList<RailDraw> leftTrackLeftRail(final double versatz, final String position) {
+	private ArrayList<RailDraw> leftTrackLeftRail(final double versatz, final Positions position) {
 		ArrayList<RailDraw> output = new ArrayList<RailDraw>();
 		Path current = w.getPathLeft().offsetClone(-versatz);
-		output.add(new RailDraw(current, "leftOuter", Side.LEFT, position, Side.LEFT));
+		// left outer
+		output.add(new RailDraw(current, Side.LEFT, position, Side.LEFT));
 		return output;
 	}
 
-	private ArrayList<RailDraw> rightTrackRightRail(final double versatz, final String position) {
+	private ArrayList<RailDraw> rightTrackRightRail(final double versatz, final Positions position) {
 		ArrayList<RailDraw> output = new ArrayList<RailDraw>();
 		final Path current = w.getPathRight().offsetClone(versatz);
-		output.add(new RailDraw(current, "rightOuter", Side.RIGHT, position, Side.RIGHT));
+		// right outer
+		output.add(new RailDraw(current, Side.RIGHT, position, Side.RIGHT));
 		return output;
 	}
 }

@@ -17,7 +17,7 @@ import common.vectorMath.objects3D.Point;
 
 public class Kr extends Railway {
 	private final double l1, l2, l3, l4, angle;
-	
+
 	private final RailCompKr railCompKr = new RailCompKr(this);
 
 	public Kr(final double gauge, final Rail r, final double l1, final double l2, final double l3, final double l4,
@@ -30,7 +30,7 @@ public class Kr extends Railway {
 		this.angle = angle;
 
 		this.calcTies();
-		
+
 		this.railCompKr.calcRails();
 	}
 
@@ -75,11 +75,11 @@ public class Kr extends Railway {
 		final TieBand tbRight = new TieBand();
 		// right
 		Path tieBorder = path(0, 1).offsetClone(-tie.getLength() / 2.);
-		tbRight.add(TieBandComp.pathWithBorder(0, minLengthRight(), getTiePathRight(), tieBorder, 0, "Kr", tie));
+		tbRight.add(TieBandComp.pathWithBorder(0, minLengthRight(), getTiePathRight(), tieBorder, 0, tie));
 		// left
 		tieBorder = path(0, 2).offsetClone(tie.getLength() / 2.);
 		tbLeft.add(TieBandComp.pathWithBorder(tie.getDist(), minLengthLeft(), getTiePathLeft(), tieBorder,
-				tbLeft.getTieList().size(), "Kr", tie));
+				tbLeft.getTieList().size(), tie));
 		final ArrayList<Tie> tieListRight = tbRight.getTieList();
 		final ArrayList<Tie> tieListLeft = tbLeft.getTieList();
 		final Tie lastTieRight = tieListRight.get(tieListRight.size() - 1);
@@ -88,10 +88,10 @@ public class Kr extends Railway {
 		final double maxRight = lastTieRight.getCube().outermost(Axis.X, Orientation.GLOBAL).getX() + tie.getDist();
 		final double maxLeft = lastTieLeft.getCube().innermost(Axis.X, Orientation.GLOBAL).getX() - tie.getDist();
 
-		final TieBand tb1 = TieBandComp.path(maxRight, l1, path(0, 1), 0, "L1", tie);
-		final TieBand tb2 = TieBandComp.path(-maxLeft, l2, path(0, 2), 0, "L2", tie);
-		final TieBand tb3 = TieBandComp.path(-maxLeft, l3, path(0, 3), 0, "L3", tie);
-		final TieBand tb4 = TieBandComp.path(maxRight, l4, path(0, 4), 0, "L4", tie);
+		final TieBand tb1 = TieBandComp.path(maxRight, l1, path(0, 1), 0, tie);
+		final TieBand tb2 = TieBandComp.path(-maxLeft, l2, path(0, 2), 0, tie);
+		final TieBand tb3 = TieBandComp.path(-maxLeft, l3, path(0, 3), 0, tie);
+		final TieBand tb4 = TieBandComp.path(maxRight, l4, path(0, 4), 0, tie);
 
 		this.tieBand.add(tbRight);
 		this.tieBand.add(tbLeft);
@@ -109,5 +109,4 @@ public class Kr extends Railway {
 		return Math.min(l1, l4);
 	}
 
-	
 }

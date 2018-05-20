@@ -4,11 +4,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
+import common.components.Kleineisen;
 import common.components.Tie;
 import common.geometry.Canvas;
 import common.railway.Railway;
-import deprecated.Kleineisen;
 
 public abstract class Export_obj {
 
@@ -18,14 +19,14 @@ public abstract class Export_obj {
 			for (Railway w : c.getRailwayList()) {
 				ArrayList<Tie> tie_list = w.getTieBand().getTieList();
 				for (int i = 0; i < tie_list.size(); i++) {
-					ausgabe.write("g Tie" + tie_list.get(i).hashCode() + "\n\n");
-					ausgabe.write(tie_list.get(i).getCube().export_obj());
-					ArrayList<Kleineisen> kleinList = tie_list.get(i).getKleinList();
+					final Tie tie = tie_list.get(i);
+					ausgabe.write("g Tie" + tie.hashCode() + "\n\n");
+					ausgabe.write(tie.getCube().export_obj());
+
+					List<Kleineisen> kleinList = tie.getKleinList();
 					for (int j = 0; j < kleinList.size(); j++) {
-						if (kleinList.get(j).getActive()) {
-							ausgabe.write("g Kleineisen" + kleinList.get(j).hashCode() + "\n\n");
-							ausgabe.write(kleinList.get(j).getPoly().export_obj());
-						}
+						ausgabe.write("g Kleineisen" + kleinList.get(j).hashCode() + "\n\n");
+						ausgabe.write(kleinList.get(j).getPoly().export_obj());
 					}
 				}
 			}

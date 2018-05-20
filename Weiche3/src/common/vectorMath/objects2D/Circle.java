@@ -74,7 +74,7 @@ public class Circle extends Curve {
 		final double cy = this.getC().getY();
 		final double r = this.getR();
 
-		final Tag t = new Tag("circle", true);
+		final Tag t = new Tag("circle");
 		t.addEntry("cx", String.valueOf(cx));
 		t.addEntry("cy", String.valueOf(cy));
 		t.addEntry("r", String.valueOf(r));
@@ -186,7 +186,7 @@ public class Circle extends Curve {
 		return Math.atan2(dy, dx);
 	}
 
-	public Point startPoint() {
+	public Point getStartPoint() {
 		return null;
 	}
 

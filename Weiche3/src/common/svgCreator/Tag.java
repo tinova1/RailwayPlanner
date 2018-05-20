@@ -1,29 +1,28 @@
 package common.svgCreator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import common.svgCreator.Entry;
 
 public class Tag extends Element {
 	private final String name;
-	private final boolean closed;
 
-	private final ArrayList<Entry> entries = new ArrayList<>();
-	private final ArrayList<Element> elements = new ArrayList<>();
+	private final List<Entry> entries = new ArrayList<>();
+	private final List<Element> elements = new ArrayList<>();
 
-	public Tag(final String name, final boolean closed) {
+	public Tag(final String name) {
 		this.name = name;
-		this.closed = closed;
 	}
 
-	public String getElement() {
+	String getElement() {
 		String output = "<" + this.name + " ";
 		for (Entry e : entries) {
 			output += e.getEntry() + " ";
 		}
-		if (!closed) {
+		if (this.elements.size() > 0) {
 			output += ">\n";
-			for (Element ele : elements) {
+			for (Element ele : this.elements) {
 				output += "    " + ele.getElement();
 			}
 			output += "</" + this.name + ">";

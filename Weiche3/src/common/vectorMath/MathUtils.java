@@ -23,21 +23,17 @@ public abstract class MathUtils {
 		return Math.round(Math.pow(10.0, frac) * value) / Math.pow(10.0, frac);
 	}
 
-	public static double pythargoras(double a, double b) {
-		return rt(pythargoras2(a, b));
+	public static double pythargoras(final double... args) {
+		return rt(pythargoras2(args));
 	}
 
-	public static double pythargoras(double a, double b, double c) {
-		return rt(pythargoras2(a, b, c));
-	}
-
-	public static double pythargoras2(double a, double b) {
+	public static double pythargoras2(final double... args) {
 		// squared pythargoras
-		return sq(a) + sq(b);
-	}
-
-	public static double pythargoras2(double a, double b, double c) {
-		return sq(a) + sq(b) + sq(c);
+		double radicand = 0.;
+		for (double arg : args) {
+			radicand += arg * arg;
+		}
+		return radicand;
 	}
 
 	protected static double rt(double arg) { // square root

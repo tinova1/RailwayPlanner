@@ -1,24 +1,27 @@
 package views;
 
-import java.util.Date;
-
+import common.components.Kleineisen;
 import common.components.Rail;
+import common.components.Tie;
 import common.geometry.Canvas;
 import common.io.Export_obj;
 import common.io.Export_svg;
 import common.railway.Railway;
-import common.railway.plain.RailwayPlain;
+import common.railway.RailwayPlain;
 import common.vectorMath.RotDir;
 import common.vectorMath.objects2D.Arc;
 import common.vectorMath.objects2D.Path;
 import common.vectorMath.objects3D.LineSeg;
 import common.vectorMath.objects3D.Point;
+import dddEngine.DDDFrame;
+import dddEngine.DDDPolygon;
 import guiTransfer.CreateTurnout;
 
 public class guiControl {
-public guiControl() {
+	public guiControl() {
 
-}
+	}
+
 	public static void createButtonPressed(double gauge, double radiusLeft, double radiusRight, double radiusAppro,
 			double angleLeft, double angleRight, double angleAppro, double strLeft, double strRight, double strAppro,
 			double offsLeft, double offsRight, double foot, double head, double vFrog, double kFrog, double guide,
@@ -51,20 +54,47 @@ public guiControl() {
 		final Path approPath = new Path();
 		switch (approIndex) {
 		case 0: // straight
-			approPath.add(new LineSeg(new Point(0, 0), new Point(-strAppro, 0)));
+			approPath.add(new LineSeg(new Point(0, 0), new Point(strAppro, 0)));
 			break;
 		case 1: // left
-			approPath.add(new Arc(new Point(0, radiusAppro), radiusAppro, -Math.PI / 2., -Math.PI / 2. - angleAppro,
+			approPath.add(new Arc(new Point(0, -radiusAppro), radiusAppro, Math.PI / 2., Math.PI / 2. - angleAppro,
 					RotDir.NEG));
 			break;
 		case 2: // right
-			approPath.add(new Arc(new Point(0, -radiusAppro), radiusAppro, Math.PI / 2., Math.PI / 2. + angleAppro,
+			approPath.add(new Arc(new Point(0, radiusAppro), radiusAppro, -Math.PI / 2., -Math.PI / 2. + angleAppro,
 					RotDir.POS));
 			break;
 		}
 		Railway approach;
 		approach = new RailwayPlain(gauge, rail, approPath);
+		approach.rotate(Math.PI);
 		canvas.addToRailwayList(approach);
+
+		/*
+		 * DDDENGINE
+		 */
+
+		DDDFrame frame = new DDDFrame();
+		frame.setVisible(true);
+
+		for (Railway r : canvas.getRailwayList()) {
+			for (Tie t : r.getTieBand().getTieList()) {
+				for (DDDPolygon p : t.getCube().getPolygons()) {
+					frame.ScreenObject.addDDDPolygon(p);
+				}
+				for (Kleineisen k : t.getKleinList()) {
+					for (DDDPolygon p : k.getPoly().getPolygons()) {
+						frame.ScreenObject.addDDDPolygon(p);
+					}
+				}
+			}
+			for (Kleineisen k : r.getKleinList()) {
+				for (DDDPolygon p : k.getPoly().getPolygons()) {
+					frame.ScreenObject.addDDDPolygon(p);
+				}
+			}
+		}
+
 		// Date date = new Date();
 		final String fileName = "ausgabe";// date.toString();
 		if (obj) {
@@ -74,8 +104,22 @@ public guiControl() {
 			Export_svg s = new Export_svg(canvas);
 			s.ausgabe(fileName);
 		}
+
+		/*
+		 * DDDENGINE
+		 */
+		/*
+		 * DDDFrame frame = new DDDFrame(); frame.setVisible(true);
+		 * 
+		 * for (Railway r : canvas.getRailwayList()) { for (Tie t :
+		 * r.getTieBand().getTieList()) { for (DDDPolygon p : t.getCube().getPolygons())
+		 * { frame.ScreenObject.addDDDPolygon(p); } for (Kleineisen k :
+		 * t.getKleinList()) { for (DDDPolygon p : k.getPoly().getPolygons()) {
+		 * frame.ScreenObject.addDDDPolygon(p); } } } for (Kleineisen k :
+		 * r.getKleinList()) { for (DDDPolygon p : k.getPoly().getPolygons()) {
+		 * frame.ScreenObject.addDDDPolygon(p); } } }
+		 */
 		System.out.println("Fertig " + fileName);
 	}
-	
-	
+
 }

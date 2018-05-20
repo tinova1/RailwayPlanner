@@ -2,7 +2,7 @@ package guiTransfer;
 
 public class ParseInput {
 	public static double parseLength(String input) throws NumberFormatException {
-		cleanString(input);
+		input = cleanString(input);
 		double inputVal = Double.parseDouble(onlyDigits(input));
 
 		if (input.endsWith("um")) {
@@ -25,7 +25,7 @@ public class ParseInput {
 
 	public static double parseAngle(String input) throws NumberFormatException {
 		// angle in degrees
-		cleanString(input);
+		input = cleanString(input);
 		double inputVal = Double.parseDouble(onlyDigits(input));
 		if (input.contains(":")) {
 			String[] numDenum = input.split(":");
@@ -39,10 +39,11 @@ public class ParseInput {
 		return inputVal;
 	}
 
-	private static void cleanString(String input) {
-		input.trim();
-		input.replace(',', '.');
-		input.replace('/', ':');
+	private static String cleanString(String input) {
+		input = input.trim();
+		input = input.replace(',', '.');
+		input = input.replace('/', ':');
+		return input;
 	}
 
 	private static String onlyDigits(String input) {

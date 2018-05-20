@@ -7,6 +7,7 @@ import common.components.RailDraw;
 import common.railway.kr.Kr;
 import common.vectorMath.objects2D.Path;
 import common.vectorMath.objects3D.Line;
+import utils.Positions;
 import utils.Side;
 
 public class RailCompKr {
@@ -27,6 +28,14 @@ public class RailCompKr {
 		this.gauge = this.kr.getGauge();
 		this.railList = this.kr.getRailList();
 		this.r = this.kr.getRail();
+	}
+
+	public void calcRails() {
+		// final String[] positions = kr.getRail().getPositions();
+		for (Positions pos : Positions.values()) {
+			this.offset = kr.getRail().getOffsets()[pos.getIndex()];
+			this.calcRail(pos);
+		}
 	}
 
 	private Path rail(final int from, final int to, final Side side, final boolean flange) {
@@ -57,16 +66,7 @@ public class RailCompKr {
 		return rail(2, 4, L, flange);
 	}
 
-	public void calcRails() {
-		// final String[] positions = kr.getRail().getPositions();
-		final double[] offsets = kr.getRail().getOffsets();
-		for (int i = 0; i < offsets.length; i++) {
-			this.offset = offsets[i];
-			this.calcRail();
-		}
-	}
-
-	private void calcRail() {
+	private void calcRail(final Positions pos) {
 		// main rails
 		final Path[] _13R = { _13R(false), _13R(false), _13R(false) };
 		final Path[] _13L = { _13L(false), _13L(false), _13L(false) };
@@ -94,16 +94,16 @@ public class RailCompKr {
 		_24L[2].trim(_13L(false), true);
 
 		for (Path p : _13R) {
-			this.railList.add(new RailDraw(p));
+			this.railList.add(new RailDraw(p, Side.UNKNOWN, pos, Side.RIGHT));
 		}
 		for (Path p : _24R) {
-			this.railList.add(new RailDraw(p));
+			this.railList.add(new RailDraw(p, Side.UNKNOWN, pos, Side.RIGHT));
 		}
 		for (Path p : _13L) {
-			this.railList.add(new RailDraw(p));
+			this.railList.add(new RailDraw(p, Side.UNKNOWN, pos, Side.LEFT));
 		}
 		for (Path p : _24L) {
-			this.railList.add(new RailDraw(p));
+			this.railList.add(new RailDraw(p, Side.UNKNOWN, pos, Side.LEFT));
 		}
 
 		// frog rails
@@ -121,10 +121,10 @@ public class RailCompKr {
 		frog24L.trim(_13L(false), true);
 		frog24L.trimAt(this.r.getVFrogLength(), false);
 
-		this.railList.add(new RailDraw(frog13R));
-		this.railList.add(new RailDraw(frog13L));
-		this.railList.add(new RailDraw(frog24R));
-		this.railList.add(new RailDraw(frog24L));
+		this.railList.add(new RailDraw(frog13R, Side.UNKNOWN, pos, Side.RIGHT));
+		this.railList.add(new RailDraw(frog13L, Side.UNKNOWN, pos, Side.LEFT));
+		this.railList.add(new RailDraw(frog24R, Side.UNKNOWN, pos, Side.RIGHT));
+		this.railList.add(new RailDraw(frog24L, Side.UNKNOWN, pos, Side.LEFT));
 
 		this.trimLines[0] = frog13R.orthoLineEnd();
 		this.trimLines[1] = frog13L.orthoLineStart();

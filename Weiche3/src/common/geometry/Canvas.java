@@ -15,6 +15,10 @@ public class Canvas {
 	public Canvas() {
 	}
 
+	public Canvas(Railway w) {
+		this.railwayList.add(w);
+	}
+
 	public List<Railway> getRailwayList() {
 		return this.railwayList;
 	}

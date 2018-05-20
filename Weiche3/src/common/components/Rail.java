@@ -61,9 +61,4 @@ public class Rail {
 	public double getOffset(final Positions pos) {
 		return this.getOffsets()[pos.getIndex()];
 	}
-
-	public String[] getPositions() {
-		return new String[] { "head_inner", "foot_inner", "head_outer", "foot_outer" };
-	}
-
 }

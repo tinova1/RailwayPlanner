@@ -69,7 +69,7 @@ public class Arc extends Circle {
 		return this.rotDir;
 	}
 
-	public Point startPoint() {
+	public Point getStartPoint() {
 		final double x = r * Math.cos(st) + c.getX();
 		final double y = r * Math.sin(st) + c.getY();
 		return new Point(x, y);
@@ -97,7 +97,7 @@ public class Arc extends Circle {
 		} else {
 			reverse = RotDir.POS;
 		}
-		return new Arc(this.c, this.getEndPoint(), this.startPoint(), reverse);
+		return new Arc(this.c, this.getEndPoint(), this.getStartPoint(), reverse);
 	}
 
 	public boolean PointOnArc(final Point p1) {
@@ -215,6 +215,6 @@ public class Arc extends Circle {
 	}
 
 	public String print() {
-		return "M " + c.print() + " St " + this.startPoint().print() + " En " + this.getEndPoint().print() + "\n";
+		return "M " + c.print() + " St " + this.getStartPoint().print() + " En " + this.getEndPoint().print() + "\n";
 	}
 }

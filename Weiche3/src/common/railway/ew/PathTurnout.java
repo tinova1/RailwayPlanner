@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import common.components.Rail;
 import common.components.Tie;
+import common.computers.kleineisen.KleinCompPathTurnout;
 import common.computers.rail.RailCompPathTurnout;
 import common.computers.tie.TieBand;
 import common.computers.tie.TieBandComp;
@@ -23,6 +24,7 @@ public class PathTurnout extends Railway {
 
 		this.calcTies();
 		this.calcRail();
+		this.calcKlein();
 	}
 
 	private void calcTies() {
@@ -39,11 +41,10 @@ public class PathTurnout extends Railway {
 		Tie lastTie = tieList.get(tieList.size() - 1);
 		double beginn_gerade = lastTie.getCube().max(Orientation.GLOBAL)[0] + lastTie.getWidth() / 2.
 				+ tie.getDist() / 2.;
-		output.add(TieBandComp.path(beginn_gerade, pathLeft.getLength(), this.pathLeft, tieList.size(), "straight",
-				this.getTie()));
+		output.add(TieBandComp.path(beginn_gerade, pathLeft.getLength(), this.pathLeft, tieList.size(), this.getTie()));
 
 		// rechtes Schwellenband
-		output.add(TieBandComp.path(beginn_gerade, this.pathRight.getLength(), this.pathRight, tieList.size(), "curve",
+		output.add(TieBandComp.path(beginn_gerade, this.pathRight.getLength(), this.pathRight, tieList.size(),
 				this.getTie()));
 
 		this.tieBand = output;
@@ -54,6 +55,10 @@ public class PathTurnout extends Railway {
 		this.railList.addAll(r.computeOutline());
 	}
 
+	private void calcKlein() {
+		this.kleinList = KleinCompPathTurnout.compute(this, true);
+	}
+
 	public Path getPathLeft() {
 		return this.pathLeft;
 	}
@@ -61,9 +66,4 @@ public class PathTurnout extends Railway {
 	public Path getPathRight() {
 		return this.pathRight;
 	}
-
-	// private void calcKlein() {
-	// KleineisenCalculator k = new KleineisenCalculator(this);
-	// k.berechnen2();
-	// }
 }

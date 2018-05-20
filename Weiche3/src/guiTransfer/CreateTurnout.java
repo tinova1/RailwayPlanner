@@ -6,7 +6,9 @@ import common.vectorMath.RotDir;
 import common.vectorMath.objects2D.Arc;
 import common.vectorMath.objects2D.Path;
 import common.vectorMath.objects3D.Point;
-
+/*
+ * A class that makes centerpaths for PathTurnout
+ */
 public abstract class CreateTurnout {
 	public static PathTurnout pathTurnout(final Rail rail, final double gauge,
 			final double radiusLeft, final double radiusRight, final double angleLeft,
@@ -20,8 +22,11 @@ public abstract class CreateTurnout {
 			pathLeft.add(
 					new Arc(new Point(0, radiusLeft), -radiusLeft, Math.PI / 2., Math.PI / 2. + angleLeft, RotDir.NEG));
 		}
+		
 		pathLeft.addLineSeg(strLeft);
+		
 		final Path pathRight = new Path();
+		
 		if (radiusRight >= 0.) {
 			pathRight.add(new Arc(new Point(0, radiusRight), radiusRight, -Math.PI / 2., -Math.PI / 2. + angleRight,
 					RotDir.POS));

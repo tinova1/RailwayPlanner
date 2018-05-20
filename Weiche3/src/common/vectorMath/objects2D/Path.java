@@ -111,11 +111,12 @@ public class Path extends Curve {
 		this.curves = output;
 	}
 
+	// Exportiert den Path als Pfad im SVG
 	public Tag export_svg() {
 		if (this.curves.size() == 0)
 			return null;
 
-		final Tag tag = new Tag("path", true);
+		final Tag tag = new Tag("path");
 		String dEntryVal = "";
 
 		for (int i = 0; i < curves.size(); i++) {
@@ -143,8 +144,8 @@ public class Path extends Curve {
 	}
 
 	private static String getStartCoords(Curve c) {
-		final double x = c.startPoint().getX();
-		final double y = c.startPoint().getY();
+		final double x = c.getStartPoint().getX();
+		final double y = c.getStartPoint().getY();
 		return " " + x + " " + y + " ";
 	}
 
@@ -215,7 +216,7 @@ public class Path extends Curve {
 	public void extrapolate(final double atStart, final double atEnd) {
 		final Curve first = this.getFirstCurve();
 		if (first instanceof LineSeg) {
-			first.startPoint().move(-atStart, ((LineSeg) first).getAngle());
+			first.getStartPoint().move(-atStart, ((LineSeg) first).getAngle());
 		} else if (first instanceof Arc) {
 			final Point center = ((Arc) first).getC();
 			final double radius = ((Arc) first).getR();
@@ -223,7 +224,7 @@ public class Path extends Curve {
 			double rotAngle = MathUtils.toAngle(atStart, radius);
 			if (rotDir == RotDir.POS)
 				rotAngle *= -1.;
-			final Point newStartPoint = first.startPoint();
+			final Point newStartPoint = first.getStartPoint();
 			newStartPoint.rotate(center, rotAngle);
 			first.setStartPoint(newStartPoint);
 		}
@@ -310,7 +311,7 @@ public class Path extends Curve {
 			} else { // Distance kleiner als Curve-Length
 				if (iC instanceof LineSeg) {
 					final LineSeg iL = (LineSeg) iC;
-					this.curves.set(i, new LineSeg(iL.startPoint(), iL.getAngle(), distance));
+					this.curves.set(i, new LineSeg(iL.getStartPoint(), iL.getAngle(), distance));
 				} else if (iC instanceof Arc) {
 					final Arc iA = (Arc) iC;
 					double en = MathUtils.toAngle(distance, iA.getR());
@@ -343,10 +344,10 @@ public class Path extends Curve {
 		}
 	}
 
-	public Point startPoint() {
+	public Point getStartPoint() {
 		if (this.curves.size() > 0) {
 			final Curve first = this.getFirstCurve();
-			return first.startPoint();
+			return first.getStartPoint();
 		} else {
 			return null;
 		}
@@ -394,10 +395,10 @@ public class Path extends Curve {
 		final Curve c = this.getFirstCurve();
 		if (c instanceof LineSeg) {
 			final LineSeg seg = (LineSeg) c;
-			return new Line(seg.startPoint(), seg.getAngle() + Math.PI / 2.);
+			return new Line(seg.getStartPoint(), seg.getAngle() + Math.PI / 2.);
 		} else if (c instanceof Arc) {
 			final Arc arc = (Arc) c;
-			return new Line(arc.startPoint(), arc.getC());
+			return new Line(arc.getStartPoint(), arc.getC());
 		} else {
 			return null;
 		}
@@ -413,7 +414,7 @@ public class Path extends Curve {
 	}
 
 	public Point pointAt(double length) {
-		final Point p = this.startPoint().clone();
+		final Point p = this.getStartPoint().clone();
 		for (int i = 0; i < this.curves.size() && length > 0; i++) {
 			final Curve c = this.curves.get(i);
 			final double maxLength = Math.min(length, c.getLength());

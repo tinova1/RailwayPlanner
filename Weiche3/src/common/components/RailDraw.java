@@ -1,31 +1,22 @@
 package common.components;
 
 import common.vectorMath.objects2D.Curve;
+import utils.Positions;
 import utils.Side;
 
 public class RailDraw {
 
-	private Side track;// left, right
-	private String name;
-	private String position; // head_inner,head_outer,foot_inner,foot_outer
+	private Side track;// left, right turnout way
+	private Positions position;
 	private Side leftRight;// left or right rail of track?
 
 	private Curve curve;
 
-	public RailDraw(Curve c, String name, Side track, String position, Side leftRight) {
-		curve = c;
+	public RailDraw(Curve c, Side track, final Positions position, Side leftRight) {
+		this.curve = c;
 		this.track = track;
-		this.name = name;
 		this.position = position;
 		this.leftRight = leftRight;
-	}
-
-	public RailDraw(Curve c) {
-		this.curve = c;
-		this.track = Side.UNKNOWN;
-		this.name = "unnamed";
-		this.position = "unknown";
-		this.leftRight = Side.UNKNOWN;
 	}
 
 	public Side getTrackSide() {
@@ -36,18 +27,15 @@ public class RailDraw {
 		return curve;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public String getPosition() {
+	public Positions getPosition() {
 		return position;
 	}
 
 	public Side getRailSide() {
 		return this.leftRight;
 	}
-
+	
+	/*
 	public boolean isOuter() {
 		// for Kleins not to be removed
 		if (this.track == Side.LEFT && this.leftRight == Side.LEFT && this.position.equalsIgnoreCase("foot_outer")) {
@@ -69,4 +57,5 @@ public class RailDraw {
 			return "left";
 		}
 	}
+	*/
 }

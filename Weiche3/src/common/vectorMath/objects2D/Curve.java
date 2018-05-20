@@ -46,7 +46,7 @@ public abstract class Curve {
 		}
 	}
 
-	public abstract Point startPoint();
+	public abstract Point getStartPoint();
 
 	public abstract Point getEndPoint();
 
@@ -54,11 +54,5 @@ public abstract class Curve {
 
 	public abstract void setEndPoint(final Point p);
 
-	protected static double sq(final double arg) {
-		return Math.pow(arg, 2.);
-	}
 
-	protected static double rt(final double arg) {
-		return Math.sqrt(arg);
-	}
 }

@@ -1,29 +1,30 @@
-package common.vectorMath;
+package common.vectorMath.objects3D;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import common.io.IO_obj_Utils;
 import common.svgCreator.Tag;
+import common.vectorMath.Orientation;
+import common.vectorMath.VectorUtils;
 import common.vectorMath.objects2D.Path;
-import common.vectorMath.objects3D.Axis;
-import common.vectorMath.objects3D.CSYS;
-import common.vectorMath.objects3D.Cube;
-import common.vectorMath.objects3D.LineSeg;
-import common.vectorMath.objects3D.Point;
+import dddEngine.DDDPolygon;
 
 public class Polyhedron {
 
 	private static final Orientation global = Orientation.GLOBAL;
 	private static final Orientation local = Orientation.LOCAL;
 
-	protected ArrayList<int[]> faces = new ArrayList<>();
-	protected ArrayList<Point> verts = new ArrayList<Point>();
+	protected List<int[]> faces = new ArrayList<>();
+	protected List<Point> verts = new ArrayList<Point>();
 	protected CSYS csys = new CSYS();
+	
+	private List<Tag> tagLocal = new ArrayList<>();
 
 	public Polyhedron() {
 	}
 
-	public Polyhedron(ArrayList<Point> verts, ArrayList<int[]> faces) {
+	public Polyhedron(List<Point> verts, List<int[]> faces) {
 		this.verts = verts;
 		this.faces = faces;
 	}
@@ -58,11 +59,19 @@ public class Polyhedron {
 		this.getCSYS().rotate(rot);
 	}
 
+	public void move(final double dx, final double dy, final double dz) {
+		this.getCSYS().move(dx, dy, dz);
+	}
+
+	public void move(final double dist, final double angle) {
+		this.getCSYS().getPoint().move(dist, angle);
+	}
+
 	public void move(Point dp) {
 		this.getCSYS().getPoint().move(dp);
 	}
 
-	public ArrayList<Point> getVerts(Orientation o) {
+	public List<Point> getVerts(Orientation o) {
 		if (o == local)
 			return this.verts;
 		else {
@@ -70,7 +79,7 @@ public class Polyhedron {
 		}
 	}
 
-	private ArrayList<Point> getVertsGlobal() {
+	private List<Point> getVertsGlobal() {
 		ArrayList<Point> vertsGlobal = new ArrayList<Point>();
 		for (int i = 0; i < verts.size(); i++) {
 			vertsGlobal.add(i, verts.get(i).clone());
@@ -81,11 +90,11 @@ public class Polyhedron {
 		return vertsGlobal;
 	}
 
-	public ArrayList<int[]> getFaces() {
+	public List<int[]> getFaces() {
 		return faces;
 	}
 
-	public ArrayList<int[]> getReverseFaces() {
+	public List<int[]> getReverseFaces() {
 		int counter = this.verts.size();
 		ArrayList<int[]> reverseFaces = new ArrayList<>();
 		for (int i = 0; i < faces.size(); i++) {
@@ -101,10 +110,12 @@ public class Polyhedron {
 
 	public String export_obj() {
 		String output = "";
-		for (int i = 0; i < getVerts(global).size(); i++) {
+		int count = getVerts(global).size();
+		for (int i = 0; i < count; i++) {
 			output += IO_obj_Utils.pointToLine(getVerts(global).get(i));
 		}
-		for (int i = 0; i < faces.size(); i++) {
+		count = faces.size();
+		for (int i = 0; i < count; i++) {
 			output += IO_obj_Utils.faceToLine(getReverseFaces().get(i));
 		}
 		return output + "\n";
@@ -114,27 +125,58 @@ public class Polyhedron {
 		return this.csys.getRot()[2];
 	}
 
-	public Tag export_svg() {
-		Path output = new Path();
-		ArrayList<Point> vertsGl = this.getVerts(global);
-		for (int i = 0; i < this.faces.size(); i++) {
-			int[] face = this.faces.get(i);
-			for (int j = 0; j < face.length; j++) {
-				LineSeg l = new LineSeg(vertsGl.get(j), vertsGl.get((j + 1) % face.length));
-				if (l.getDir().getLength2() > 1e-13)
-					output .add(l);
+	public void updateTagLocal() {
+		final Path[] facesAsPaths = new Path[this.faces.size()]; // for each face, one path is created
+		final List<Point> vertsGl = this.getVerts(local); // shorten access to Pointer
+		for (int i = 0; i < facesAsPaths.length; i++) {
+			final int[] thisFace = this.faces.get(i);
+			facesAsPaths[i] = new Path();
+			if (thisFace.length < 2) // face must have at least 2 verts, otherwise continue
+				continue;
+			// iterate over face
+			for (int j = 0; j < thisFace.length; j++) {
+				final Point p1 = vertsGl.get(thisFace[j] - 1);
+				final Point p2 = vertsGl.get(thisFace[(j + 1) % thisFace.length] - 1);
+				// ignore line if length in xy plane is zero
+				//if (Dist.distInXYPlane2(p1, p2) < MathUtils.ROUND_ZERO)
+					//continue;
+				final LineSeg seg = new LineSeg(p1, p2);
+				facesAsPaths[i].add(seg);
 			}
 		}
-		return output.export_svg();
+		final List<Tag> output = new ArrayList<>();
+		for (int i = 0; i < facesAsPaths.length; i++) {
+			final Tag tag = facesAsPaths[i].export_svg();
+			if (tag != null)
+				output.add(tag);
+		}
+		this.tagLocal=output;
+	}
+
+	public List<Tag> export_svg() {
+		final List<Tag> local = this.tagLocal;
+		final double dx = this.csys.getX();
+		final double dy = this.csys.getY();
+		final double rot = Math.toDegrees(this.csys.getRot()[2]);
+		final double[] sc = this.csys.getScale();
+		for (Tag tag : local) {
+			// like this: "translate(30) rotate(45 50 50) scale(1 1)"
+			final String entryValue = "translate(" + dx + " " + dy + ") rotate(" + rot + ") scale(" + sc[0] + " "
+					+ sc[1] + ")";
+			// like this: transform="translate(30) rotate(45 50 50) scale(1 1)"
+			tag.addEntry("transform", entryValue);
+			tag.addEntry("vector-effect", "non-scaling-stroke");
+		}
+		return local; // local is now global
 	}
 
 	// maximum value in each axis
 	public double[] max(Orientation o) {
 		double[] output = new double[3];
 		// initialize ausgabe with minimum values
-		for (int i = 0; i < output.length; i++) {
+		for (int i = 0; i < output.length; i++)
 			output[i] = -Double.MAX_VALUE;
-		}
+
 		for (int i = 0; i < this.getVerts(o).size(); i++) {
 			double[] xyz = this.getVerts(o).get(i).getxyz();
 			for (int j = 0; j < xyz.length; j++) {
@@ -147,10 +189,10 @@ public class Polyhedron {
 	// minimum value in each axis
 	public double[] min(Orientation o) {
 		double[] output = new double[3];
-		// initialize ausgabe with maximum values
-		for (int i = 0; i < output.length; i++) {
+		// initialize output with maximum values
+		for (int i = 0; i < output.length; i++)
 			output[i] = Double.MAX_VALUE;
-		}
+
 		for (int i = 0; i < this.getVerts(o).size(); i++) {
 			double[] xyz = this.getVerts(o).get(i).getxyz();
 			for (int j = 0; j < xyz.length; j++) {
@@ -167,8 +209,11 @@ public class Polyhedron {
 		for (int i = 0; i < dimensions.length; i++) {
 			dimensions[i] = max[i] - min[i];
 		}
-		final CSYS c = new CSYS(new Point(min), dimensions, new double[3]);
-		return new Cube(c, 1);
+		final Point minPoint = new Point(min);
+		final Point maxPoint = new Point(max);
+		final Point center = VectorUtils.middle(minPoint, maxPoint);
+		final CSYS c = new CSYS(center, dimensions, new double[3]);
+		return new Cube(c, 0);
 	}
 
 	public Point outermost(final Axis axis, Orientation o) {
@@ -193,6 +238,25 @@ public class Polyhedron {
 			}
 		}
 		return max;
+	}
+
+	public DDDPolygon[] getPolygons() {
+		/*
+		 * Return Faces as DDDPolygons
+		 */
+		DDDPolygon[] ausgabe = new DDDPolygon[this.faces.size()];
+		for (int i = 0; i < this.faces.size(); i++) {
+			Point[] vertsOfPoly = new Point[this.faces.get(i).length];
+			for (int j = 0; j < vertsOfPoly.length; j++) {
+				final int[] thisFace = this.faces.get(i);
+				final int thisVertNumber = thisFace[j];
+				final Point thisVert = this.getVerts(Orientation.GLOBAL).get(thisVertNumber - 1);
+				vertsOfPoly[j] = thisVert;
+			}
+			ausgabe[i] = new DDDPolygon(vertsOfPoly);
+		}
+		return ausgabe;
+
 	}
 
 }
